@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -57,9 +58,11 @@ public class LoginActivity extends Activity {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         LoginApi api = retrofit.create(LoginApi.class);
         Call<User> call = api.postLoginStatus(Config.API_KEY, email, password);
+
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                Log.d("response", response.toString());
                 if (response.code() == 200) {
                     assert response.body() != null;
                     if (response.body().getStatus().equalsIgnoreCase("success")) {
