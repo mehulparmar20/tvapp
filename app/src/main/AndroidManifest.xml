@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.oxootv.spagreen"
+    package="com.yahumott.tvapp"
     tools:ignore="ImpliedTouchscreenHardware">
 
     <uses-feature
@@ -31,66 +31,66 @@
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <activity
-            android:name=".video_service.VideoPlaybackActivity"
+            android:name="com.yahumott.tvapp.video_service.VideoPlaybackActivity"
             android:supportsPictureInPicture="true"
             android:exported="true"
             android:screenOrientation="landscape"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:resizeableActivity="true"/>
-        <activity android:name=".music_service.MusicPlayerActivity" />
+        <activity android:name="com.yahumott.tvapp.music_service.MusicPlayerActivity" />
         <activity
-            android:name=".ui.activity.ErrorActivity"
+            android:name="com.yahumott.tvapp.ui.activity.ErrorActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.activity.VideoDetailsActivity"
+            android:name="com.yahumott.tvapp.ui.activity.VideoDetailsActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.activity.SignUpActivity"
+            android:name="com.yahumott.tvapp.ui.activity.SignUpActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" />
         <activity
             android:screenOrientation="landscape"
-            android:name=".ui.activity.PlayerActivity"
+            android:name="com.yahumott.tvapp.ui.activity.PlayerActivity"
             android:supportsPictureInPicture="true"
             android:exported="true"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:resizeableActivity="true"/>
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name="com.yahumott.tvapp.ui.activity.LoginActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.activity.ItemGenreActivity"
+            android:name="com.yahumott.tvapp.ui.activity.ItemGenreActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.activity.ItemCountryActivity"
+            android:name="com.yahumott.tvapp.ui.activity.ItemCountryActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.activity.ActivationActivity"
+            android:name="com.yahumott.tvapp.ui.activity.ActivationActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.activity.SearchActivity"
+            android:name="com.yahumott.tvapp.ui.activity.SearchActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.Leanback.Details.NoSharedElementTransition" />
         <activity
-            android:name=".ui.activity.LeanbackActivity"
+            android:name="com.yahumott.tvapp.ui.activity.LeanbackActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape"/>
         <activity
-            android:name=".ui.activity.SplashScreenActivity"
+            android:name="com.yahumott.tvapp.ui.activity.SplashScreenActivity"
             android:screenOrientation="landscape"
             android:banner="@drawable/ic_launcher_tv"
             android:icon="@drawable/ic_launcher_tv"
@@ -107,11 +107,11 @@
 
         </activity>
         <activity
-            android:name=".ui.activity.LoginChooserActivity"
+            android:name="com.yahumott.tvapp.ui.activity.LoginChooserActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.yahumott.tvapp.MainActivity"
             android:screenOrientation="landscape"
             android:label="@string/app_name">
             <intent-filter>
@@ -123,10 +123,10 @@
 
 
         <service
-            android:name=".music_service.MusicPlaybackService"
+            android:name="com.yahumott.tvapp.music_service.MusicPlaybackService"
             android:exported="false" />
 
-        <activity android:name=".video_service.AppLinkActivity">
+        <activity android:name="com.yahumott.tvapp.video_service.AppLinkActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -136,16 +136,16 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".video_service.SyncChannelJobService"
+        <service android:name="com.yahumott.tvapp.video_service.SyncChannelJobService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <service
-            android:name=".video_service.SyncProgramsJobService"
+            android:name="com.yahumott.tvapp.video_service.SyncProgramsJobService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <receiver android:name=".video_service.InitializeChannelsReceiver">
+        <receiver android:name="com.yahumott.tvapp.video_service.InitializeChannelsReceiver">
             <intent-filter>
                 <action android:name="android.media.tv.action.INITIALIZE_PROGRAMS" />
                 <category android:name="android.intent.category.DEFAULT" />

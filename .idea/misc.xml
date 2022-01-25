@@ -3,6 +3,35 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout-land/activity_login_chooser.xml" value="0.1728395061728395" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout-land/activity_sign_up.xml" value="0.15052083333333333" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout-land/activity_splash_screen.xml" value="0.15052083333333333" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_activation.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_error.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_item_country.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_item_genre.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_leanback.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_login_chooser.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_music_player.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_onboarding.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_player.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_search.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_sign_up.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_splash_screen.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_video_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/activity_video_example.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/custom_exo_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/fragment_my_account.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/icon_header_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/layout_server_tv.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/layout_server_tv_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/layout_subtitle_dialog.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/layout_tv_cast_crew.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/paid_alert_dialog.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/toast_icon_text.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/tv_action_button_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Veravalonline/AndroidStudioProjects/tvapp/app/src/main/res/layout/vh_movie_details.xml" value="0.20416666666666666" />
         <entry key="..\:/vo/yahumott_tv/app/src/main/res/layout-land/activity_leanback.xml" value="0.1728395061728395" />
         <entry key="..\:/vo/yahumott_tv/app/src/main/res/layout/activity_leanback.xml" value="0.20416666666666666" />
         <entry key="..\:/vo/yahumott_tv/app/src/main/res/layout/layout_server_tv.xml" value="0.20416666666666666" />

@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/musicFragment"
-        android:name="com.oxootv.spagreen.music_service.MusicConsumptionExampleFragment"
+        android:name="com.yahumott.tvapp.music_service.MusicConsumptionExampleFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>

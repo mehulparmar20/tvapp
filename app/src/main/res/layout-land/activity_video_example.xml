@@ -9,7 +9,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.oxootv.spagreen.video_service.PlaybackFragment"
+        android:name="com.yahumott.tvapp.video_service.PlaybackFragment"
         android:id="@+id/playback_controls_fragment"/>
 
 </FrameLayout>
