@@ -29,6 +29,7 @@ import com.oxootv.spagreen.R;
 import com.oxootv.spagreen.model.Movie;
 import com.oxootv.spagreen.network.RetrofitClient;
 import com.oxootv.spagreen.network.api.MovieApi;
+import com.oxootv.spagreen.network.api.MovieList;
 import com.oxootv.spagreen.ui.BackgroundHelper;
 import com.oxootv.spagreen.ui.activity.ErrorActivity;
 import com.oxootv.spagreen.ui.activity.LeanbackActivity;
@@ -36,9 +37,13 @@ import com.oxootv.spagreen.ui.activity.SearchActivity;
 import com.oxootv.spagreen.ui.activity.VideoDetailsActivity;
 import com.oxootv.spagreen.ui.presenter.VerticalCardPresenter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -99,7 +104,7 @@ public class MoviesFragment extends VerticalGridSupportFragment {
                 Movie movie = (Movie) o;
 
                 Intent intent = new Intent(getActivity(), VideoDetailsActivity.class);
-                intent.putExtra("id", movie.getVideosId());
+//                intent.putExtra("id", Movie.cust.getVideosId());
                 intent.putExtra("type", "movie");
                 intent.putExtra("thumbImage", movie.getThumbnailUrl());
 
@@ -152,27 +157,33 @@ public class MoviesFragment extends VerticalGridSupportFragment {
         final SpinnerFragment mSpinnerFragment = new SpinnerFragment();
         final FragmentManager fm = getFragmentManager();
         fm.beginTransaction().add(R.id.custom_frame_layout, mSpinnerFragment).commit();
+//        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         MovieApi api = retrofit.create(MovieApi.class);
-        Call<List<Movie>> call = api.getMovies(Config.API_KEY, pageCount);
-        call.enqueue(new Callback<List<Movie>>() {
+        Call<MovieList> call = api.getMovies();
+        call.enqueue(new Callback<MovieList>() {
             @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                List<Movie> movieList = response.body();
-                if (movieList.size() <= 0) {
+            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
+                Log.d("testlog", response.toString());
+                movies = response.body().getResult();
+                Log.d(TAG, String.valueOf(movies.size()));
+//                MovieList movieList = response.body().getResult();
+//                MovieList movieList = (MovieList) response.body().getResult();
+                if (movies.size() <= 0) {
                     dataAvailable = false;
                     if (pageCount != 2) {
                         Toast.makeText(activity, getResources().getString(R.string.no_more_data_found), Toast.LENGTH_SHORT).show();
                     }
                 }
 
-                for (Movie movie : movieList) {
+                for (Movie movie : movies) {
+                    Log.d("movie_url", movie.getThumbnailUrl());
                     mAdapter.add(movie);
                 }
 
-                mAdapter.notifyArrayItemRangeChanged(movieList.size() - 1, movieList.size() + movies.size());
-                movies.addAll(movieList);
+                mAdapter.notifyArrayItemRangeChanged(movies.size() - 1, movies.size() + movies.size());
+                movies.addAll(movies);
                 //setAdapter(mAdapter);
 
                 // hide the spinner
@@ -181,7 +192,7 @@ public class MoviesFragment extends VerticalGridSupportFragment {
             }
 
             @Override
-            public void onFailure(Call<List<Movie>> call, Throwable t) {
+            public void onFailure(Call<MovieList> call, Throwable t) {
                 t.printStackTrace();
                 // hide the spinner
                 Toast.makeText(activity, t.getMessage(), Toast.LENGTH_SHORT).show();

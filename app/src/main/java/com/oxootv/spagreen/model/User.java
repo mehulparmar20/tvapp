@@ -8,7 +8,7 @@ public class User {
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("user_id")
+    @SerializedName("id")
     @Expose
     private String userId;
     @SerializedName("name")
@@ -17,20 +17,17 @@ public class User {
     @SerializedName("email")
     @Expose
     private String email;
-    @SerializedName("gender")
+    @SerializedName("age")
     @Expose
-    private String gender;
-    @SerializedName("join_date")
+    private String age;
+    @SerializedName("created_at")
     @Expose
     private String joinDate;
-    @SerializedName("last_login")
+    @SerializedName("access_token")
     @Expose
-    private String lastLogin;
+    private String access_token;
 
-    @SerializedName("data")
-    @Expose
-    private String data;
-    @SerializedName("image_url")
+    @SerializedName("image")
     @Expose
     private String imageUrl;
 
@@ -38,13 +35,6 @@ public class User {
     public User() {
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
 
     public String getStatus() {
         return status;
@@ -78,12 +68,12 @@ public class User {
         this.email = email;
     }
 
-    public String getGender() {
-        return gender;
+    public String getage() {
+        return age;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setage(String age) {
+        this.age = age;
     }
 
     public String getJoinDate() {
@@ -94,12 +84,12 @@ public class User {
         this.joinDate = joinDate;
     }
 
-    public String getLastLogin() {
-        return lastLogin;
+    public String getaccess_token() {
+        return access_token;
     }
 
-    public void setLastLogin(String lastLogin) {
-        this.lastLogin = lastLogin;
+    public void setaccess_token(String access_token) {
+        this.access_token = access_token;
     }
 
     public String getImageUrl() {
@@ -117,10 +107,9 @@ public class User {
                 ", userId='" + userId + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", gender='" + gender + '\'' +
+                ", gender='" + age + '\'' +
                 ", joinDate='" + joinDate + '\'' +
-                ", lastLogin='" + lastLogin + '\'' +
-                ", data='" + data + '\'' +
+                ", lastLogin='" + access_token + '\'' +
                 ", image_url='" + imageUrl + '\'' +
 
                 '}';

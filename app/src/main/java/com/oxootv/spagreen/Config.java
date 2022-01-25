@@ -2,10 +2,10 @@ package com.oxootv.spagreen;
 
 public class Config {
     // copy your api url from php admin dashboard & paste below
-    public static final String API_SERVER_URL = "http://yahumott.com/public/";
+    public static final String API_SERVER_URL = "http://yahumott.com/public/api/";
 
     //copy your api key from php admin dashboard & paste below
-    public static final String API_KEY = "api/";
+    public static final String API_KEY = "";
 
     //put your envato purchase code here
     public static final String PURCHASE_CODE = "xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxx-xxxxxxxxxxx";

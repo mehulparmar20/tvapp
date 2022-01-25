@@ -58,14 +58,13 @@ public class LoginActivity extends Activity {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         LoginApi api = retrofit.create(LoginApi.class);
         Call<User> call = api.postLoginStatus(Config.API_KEY, email, password);
-
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.d("response", response.toString());
                 if (response.code() == 200) {
                     assert response.body() != null;
-                    if (response.body().getStatus().equalsIgnoreCase("success")) {
+                    if (response.body().getStatus().equalsIgnoreCase("1")) {
                         User user = response.body();
                         DatabaseHelper db = new DatabaseHelper(LoginActivity.this);
                         if (db.getUserDataCount() > 1) {
@@ -86,7 +85,7 @@ public class LoginActivity extends Activity {
                         updateSubscriptionStatus(user.getUserId());
 
                     } else {
-                        new ToastMsg(LoginActivity.this).toastIconError(response.body().getData());
+                        new ToastMsg(LoginActivity.this).toastIconError(response.body().getStatus());
                         progressBar.setVisibility(View.GONE);
                     }
                 }
@@ -109,44 +108,45 @@ public class LoginActivity extends Activity {
 
     public void updateSubscriptionStatus(String userId) {
         //get saved user id
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
-        SubscriptionApi subscriptionApi = retrofit.create(SubscriptionApi.class);
+        Intent intent = new Intent(LoginActivity.this, LeanbackActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
-        Call<ActiveStatus> call = subscriptionApi.getActiveStatus(Config.API_KEY, userId);
-        call.enqueue(new Callback<ActiveStatus>() {
-            @Override
-            public void onResponse(Call<ActiveStatus> call, Response<ActiveStatus> response) {
-                if (response.code() == 200) {
-                    if (response.body() != null) {
-                        ActiveStatus activeStatus = response.body();
-                        DatabaseHelper db = new DatabaseHelper(LoginActivity.this);
-
-                        if (db.getActiveStatusCount() > 1) {
-                            db.deleteAllActiveStatusData();
-                        } else {
-
-                            if (db.getActiveStatusCount() == 0) {
-                                db.insertActiveStatusData(activeStatus);
-                            } else {
-                                db.updateActiveStatus(activeStatus, 1);
-                            }
-                        }
-                        Intent intent = new Intent(LoginActivity.this, LeanbackActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-
-                        startActivity(intent);
-                        finish();
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ActiveStatus> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+        startActivity(intent);
+        finish();
+        progressBar.setVisibility(View.GONE);
+//        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+//        SubscriptionApi subscriptionApi = retrofit.create(SubscriptionApi.class);
+//
+//        Call<ActiveStatus> call = subscriptionApi.getActiveStatus(Config.API_KEY, userId);
+//        call.enqueue(new Callback<ActiveStatus>() {
+//            @Override
+//            public void onResponse(Call<ActiveStatus> call, Response<ActiveStatus> response) {
+//                if (response.code() == 200) {
+//                    if (response.body() != null) {
+//                        ActiveStatus activeStatus = response.body();
+//                        DatabaseHelper db = new DatabaseHelper(LoginActivity.this);
+//
+//                        if (db.getActiveStatusCount() > 1) {
+//                            db.deleteAllActiveStatusData();
+//                        } else {
+//
+//                            if (db.getActiveStatusCount() == 0) {
+//                                db.insertActiveStatusData(activeStatus);
+//                            } else {
+//                                db.updateActiveStatus(activeStatus, 1);
+//                            }
+//                        }
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ActiveStatus> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
     }
 }

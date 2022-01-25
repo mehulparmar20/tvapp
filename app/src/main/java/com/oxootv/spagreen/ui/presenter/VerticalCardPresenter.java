@@ -51,7 +51,7 @@ public class VerticalCardPresenter extends Presenter {
         if (type.equals(TvSeriesFragment.TV_SERIES)) {
             Movie movie = (Movie) item;
             ((ViewHolder) viewHolder).mCardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
-            ((ViewHolder) viewHolder).updateCardViewImage(movie.getThumbnailUrl());
+            ((ViewHolder) viewHolder).updateCardViewImage(movie.getThumbnailUrltv());
         } else if (type.equals(MoviesFragment.MOVIE)) {
             Movie movie = (Movie) item;
             ((ViewHolder) viewHolder).mCardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);

@@ -13,7 +13,6 @@ import retrofit2.http.Query;
 public interface TvSeriesApi {
 
     @GET("tvseries")
-    Call<List<Movie>> getTvSeries(@Header("API-KEY") String apiKey,
-                                  @Query("page") int page);
+    Call<MovieList> getTvSeries();
 
 }

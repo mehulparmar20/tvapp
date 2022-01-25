@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class Movie implements Serializable {
 
-    @SerializedName("videos_id")
+    @SerializedName("id")
     @Expose
     private String videosId;
     @SerializedName("title")
@@ -19,26 +19,26 @@ public class Movie implements Serializable {
     @SerializedName("slug")
     @Expose
     private String slug;
-    @SerializedName("release")
-    @Expose
+//    @SerializedName("release")
+//    @Expose
     private String release;
-    @SerializedName("is_tvseries")
-    @Expose
+//    @SerializedName("is_tvseries")
+//    @Expose
     private String isTvseries;
-    @SerializedName("runtime")
-    @Expose
+//    @SerializedName("runtime")
+//    @Expose
     private String runtime;
-    @SerializedName("video_quality")
-    @Expose
+//    @SerializedName("video_quality")
+//    @Expose
     private String videoQuality;
-    @SerializedName("thumbnail_url")
+    @SerializedName("thumbnail")
     @Expose
     private String thumbnailUrl;
-    @SerializedName("poster_url")
+    @SerializedName("poster")
     @Expose
     private String posterUrl;
-    @SerializedName("is_paid")
-    @Expose
+//    @SerializedName("is_paid")
+//    @Expose
     private String isPaid;
 
     public String getVideosId() {
@@ -106,7 +106,11 @@ public class Movie implements Serializable {
     }
 
     public String getThumbnailUrl() {
-        return thumbnailUrl;
+        return "https://yahumott.com/images/movies/thumbnails/"+thumbnailUrl;
+    }
+
+    public String getThumbnailUrltv() {
+        return "https://yahumott.com/images/tvseries/thumbnails/"+thumbnailUrl;
     }
 
     public void setThumbnailUrl(String thumbnailUrl) {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import androidx.leanback.widget.RowPresenter;
 import com.oxootv.spagreen.Config;
 import com.oxootv.spagreen.Constants;
 import com.oxootv.spagreen.NetworkInst;
+import com.oxootv.spagreen.model.Movie;
+import com.oxootv.spagreen.network.api.HomeContentList;
 import com.oxootv.spagreen.ui.activity.PlayerActivity;
 import com.oxootv.spagreen.utils.PreferenceUtils;
 import com.oxootv.spagreen.R;
@@ -48,6 +51,7 @@ import com.oxootv.spagreen.utils.PaidDialog;
 import com.oxootv.spagreen.video_service.PlaybackModel;
 import com.oxootv.spagreen.video_service.VideoPlaybackActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -61,7 +65,7 @@ public class HomeFragment extends RowsSupportFragment {
     private ArrayObjectAdapter rowsAdapter;
     private CardPresenter cardPresenter;
     private View v;
-
+    private List<HomeContent> homeContents = new ArrayList<>();
     private LeanbackActivity activity;
 
 
@@ -98,33 +102,35 @@ public class HomeFragment extends RowsSupportFragment {
 
     private void loadHomeContent() {
 
+        Log.d("home content", "loadHomeContent: ");
         final SpinnerFragment mSpinnerFragment = new SpinnerFragment();
         final FragmentManager fm = getFragmentManager();
         fm.beginTransaction().add(R.id.custom_frame_layout, mSpinnerFragment).commit();
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         HomeApi api = retrofit.create(HomeApi.class);
-        Call<List<HomeContent>> call = api.getHomeContent(Config.API_KEY);
-        call.enqueue(new Callback<List<HomeContent>>() {
+        Call<HomeContentList> call = api.getHomeContent();
+        call.enqueue(new Callback<HomeContentList>() {
             @Override
-            public void onResponse(Call<List<HomeContent>> call, Response<List<HomeContent>> response) {
+            public void onResponse(Call<HomeContentList> call, Response<HomeContentList> response) {
                 if (response.isSuccessful()) {
-                    List<HomeContent> homeContents = response.body();
-                    //Log.d("size:", homeContents.size()+"");
+                    homeContents = response.body().getResult();
+//                    Log.d("size:", homeContents.size()+"");
 
-                    if (homeContents.size() > 0) {
-                        loadRows(homeContents);
+//                    Log.d("jsonarray:", response.body().getResult().toString());
+//                    if (homeContents.size() > 0) {
+//                        loadRows(homeContents);
 
                         //save latest movies in constant file for temporary
                         // to add/update channel
-                        if (homeContents.get(2).getContent() != null) {
-                            Constants.movieList.clear();
-                            Constants.movieList = homeContents.get(2).getContent();
-                        }
+//                        if (homeContents.get(2).getContent() != null) {
+//                            Constants.movieList.clear();
+//                            Constants.movieList = homeContents.get(2).getContent();
+//                        }
 
-                    } else {
-                        Toast.makeText(getContext(), getResources().getString(R.string.no_data_found), Toast.LENGTH_SHORT).show();
-                    }
+//                    } else {
+//                        Toast.makeText(getContext(), getResources().getString(R.string.no_data_found), Toast.LENGTH_SHORT).show();
+//                    }
 
 
                 } else {
@@ -136,7 +142,7 @@ public class HomeFragment extends RowsSupportFragment {
             }
 
             @Override
-            public void onFailure(Call<List<HomeContent>> call, Throwable t) {
+            public void onFailure(Call<HomeContentList> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 // hide the spinner
@@ -152,42 +158,47 @@ public class HomeFragment extends RowsSupportFragment {
         TvPresenter tvPresenter = new TvPresenter();
 
         int i;
+        Log.d("size val", String.valueOf(homeContents.size()));
         for (i = 0; i < homeContents.size(); i++) {
             ArrayObjectAdapter listRowAdapter;
             HeaderItem header;
             if (i == 0) {
                 // load slider
+                Log.d("sliderload", homeContents.toString());
                 listRowAdapter = new ArrayObjectAdapter(sliderCardPresenter);
                 header = new HeaderItem(i, "");
             } else if (i == 1) {
                 //load tv layout
+                Log.d("load tv layout", homeContents.get(i).toString());
                 listRowAdapter = new ArrayObjectAdapter(tvPresenter);
                 header = new HeaderItem(i, homeContents.get(i).getTitle());
             } else {
+                Log.d("loadother", homeContents.get(i).toString());
                 listRowAdapter = new ArrayObjectAdapter(cardPresenter);
                 header = new HeaderItem(i, homeContents.get(i).getTitle());
             }
-            //for (int j = 0; j < NUM_COLS; j++) {
-            for (int j = 0; j < homeContents.get(i).getContent().size(); j++) {
 
-                VideoContent videoContent = homeContents.get(i).getContent().get(j);
-
-                if (homeContents.get(i).getType().equalsIgnoreCase("tv")) {
-                    videoContent.setType("tv");
-                } else if (homeContents.get(i).getType().equalsIgnoreCase("movie")) {
-                    videoContent.setType("movie");
-                } else if (homeContents.get(i).getType().equalsIgnoreCase("tvseries")) {
-                    videoContent.setType("tvseries");
-                } else if (homeContents.get(i).getType().equalsIgnoreCase("slider")) {
-                    if (videoContent.getIsTvseries().equals("1")) {
-                        videoContent.setType("tvseries");
-                    } else if (videoContent.getIsTvseries().equals("0")) {
-                        videoContent.setType("movie");
-                    }
-                }
-
-                listRowAdapter.add(videoContent);
-            }
+//            Log.d("movielist", homeContents.get(i).getContent().toString());
+//            for (int j = 0; j < homeContents.get(i).getContent().size(); j++) {
+//
+//                VideoContent videoContent = homeContents.get(i).getContent().get(j);
+//
+//                if (homeContents.get(i).getType().equalsIgnoreCase("tv")) {
+//                    videoContent.setType("tv");
+//                } else if (homeContents.get(i).getType().equalsIgnoreCase("movie")) {
+//                    videoContent.setType("movie");
+//                } else if (homeContents.get(i).getType().equalsIgnoreCase("tvseries")) {
+//                    videoContent.setType("tvseries");
+//                } else if (homeContents.get(i).getType().equalsIgnoreCase("slider")) {
+//                    if (videoContent.getIsTvseries().equals("1")) {
+//                        videoContent.setType("tvseries");
+//                    } else if (videoContent.getIsTvseries().equals("0")) {
+//                        videoContent.setType("movie");
+//                    }
+//                }
+//
+//                listRowAdapter.add(videoContent);
+//            }
             rowsAdapter.add(new ListRow(header, listRowAdapter));
         }
 
@@ -212,7 +223,7 @@ public class HomeFragment extends RowsSupportFragment {
 
                 String status = new DatabaseHelper(getContext()).getActiveStatusData().getStatus();
 
-                if (videoContent.getType().equals("tv")) {
+                if (videoContent.getType().equals("T")) {
                     if (videoContent.getIsPaid().equals("1")) {
                         if (PreferenceUtils.isValid(getActivity())) {
                             if (status.equals("active")) {

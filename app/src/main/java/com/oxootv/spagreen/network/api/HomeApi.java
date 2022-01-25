@@ -10,6 +10,6 @@ import retrofit2.http.Header;
 
 public interface HomeApi {
 
-    @GET("home_content")
-    Call<List<HomeContent>> getHomeContent(@Header("API-KEY") String apiKey);
+    @GET("movie")
+    Call<HomeContentList> getHomeContent();
 }

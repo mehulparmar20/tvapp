@@ -23,10 +23,11 @@ public class HomeContent implements Serializable {
     @SerializedName("slug")
     @Expose
     private String slug;
-    @SerializedName("url")
+    @SerializedName("thumbnail")
     @Expose
     private String url;
-    @SerializedName("content")
+
+    @SerializedName("episodes")
     @Expose
     private List<VideoContent> content = null;
 
@@ -71,7 +72,7 @@ public class HomeContent implements Serializable {
     }
 
     public String getUrl() {
-        return url;
+        return "https://yahumott.com/images/movies/thumbnails/"+url;
     }
 
     public void setUrl(String url) {

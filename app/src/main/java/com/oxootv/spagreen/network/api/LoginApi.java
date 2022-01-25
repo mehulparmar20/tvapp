@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 public interface LoginApi {
 
     @FormUrlEncoded
-    @POST("login")
+    @POST("tvlogin")
     Call<User> postLoginStatus(@Header("API-KEY") String apiKey,
                                @Field("email") String email,
                                @Field("password") String password);

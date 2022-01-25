@@ -84,7 +84,7 @@ public class SignUpActivity extends Activity {
                         //save user login time, expire time
                         updateSubscriptionStatus(user.getUserId());
                     } else if (response.body().getStatus().equals("error")) {
-                        new ToastMsg(SignUpActivity.this).toastIconError(response.body().getData());
+                        new ToastMsg(SignUpActivity.this).toastIconError(response.body().getStatus());
                     }
                     progressBar.setVisibility(View.GONE);
                 }

@@ -25,6 +25,7 @@ import com.oxootv.spagreen.NetworkInst;
 import com.oxootv.spagreen.R;
 import com.oxootv.spagreen.model.Movie;
 import com.oxootv.spagreen.network.RetrofitClient;
+import com.oxootv.spagreen.network.api.MovieList;
 import com.oxootv.spagreen.network.api.TvSeriesApi;
 import com.oxootv.spagreen.ui.BackgroundHelper;
 import com.oxootv.spagreen.ui.activity.ErrorActivity;
@@ -98,7 +99,7 @@ public class TvSeriesFragment extends VerticalGridSupportFragment {
                 Intent intent = new Intent(getActivity(), VideoDetailsActivity.class);
                 intent.putExtra("id", movie.getVideosId());
                 intent.putExtra("type", "tvseries");
-                intent.putExtra("thumbImage", movie.getThumbnailUrl());
+                intent.putExtra("thumbImage", movie.getThumbnailUrltv());
                 //poster transition
                 ImageView imageView = ((ImageCardView) viewHolder.view).getMainImageView();
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
@@ -131,7 +132,7 @@ public class TvSeriesFragment extends VerticalGridSupportFragment {
                 if (item instanceof Movie) {
                     bgHelper = new BackgroundHelper(getActivity());
                     bgHelper.prepareBackgroundManager();
-                    bgHelper.startBackgroundTimer(((Movie) item).getThumbnailUrl());
+                    bgHelper.startBackgroundTimer(((Movie) item).getThumbnailUrltv());
 
                 }
 
@@ -154,25 +155,27 @@ public class TvSeriesFragment extends VerticalGridSupportFragment {
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         TvSeriesApi api = retrofit.create(TvSeriesApi.class);
-        Call<List<Movie>> call = api.getTvSeries(Config.API_KEY, pageCount);
-        call.enqueue(new Callback<List<Movie>>() {
+        Call<MovieList> call = api.getTvSeries();
+        call.enqueue(new Callback<MovieList>() {
             @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
                 if (response.code() == 200) {
-                    List<Movie> movieList = response.body();
-                    if (movieList.size() == 0) {
+                    movies = response.body().getResulttv();
+                    Log.d(TAG, movies.toString());
+                    if (movies.size() == 0) {
                         dataAvailable = false;
                         if (pageCount != 2) {
                             Toast.makeText(activity, getResources().getString(R.string.no_data_found), Toast.LENGTH_SHORT).show();
                         }
                     }
 
-                    for (Movie movie : movieList) {
+                    for (Movie movie : movies) {
+                        Log.d(TAG, movie.getThumbnailUrltv());
                         mAdapter.add(movie);
                     }
 
-                    mAdapter.notifyArrayItemRangeChanged(movieList.size() - 1, movieList.size() + movies.size());
-                    movies.addAll(movieList);
+                    mAdapter.notifyArrayItemRangeChanged(movies.size() - 1, movies.size() + movies.size());
+                    movies.addAll(movies);
                     //setAdapter(mAdapter);
 
                     // hide the spinner
@@ -182,7 +185,7 @@ public class TvSeriesFragment extends VerticalGridSupportFragment {
             }
 
             @Override
-            public void onFailure(Call<List<Movie>> call, Throwable t) {
+            public void onFailure(Call<MovieList> call, Throwable t) {
                 t.printStackTrace();
                 // hide the spinner
                 fm.beginTransaction().remove(mSpinnerFragment).commitAllowingStateLoss();

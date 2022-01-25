@@ -25,6 +25,7 @@ import androidx.leanback.widget.RowPresenter;
 
 import com.oxootv.spagreen.Config;
 import com.oxootv.spagreen.NetworkInst;
+import com.oxootv.spagreen.network.api.HomeContentList;
 import com.oxootv.spagreen.ui.activity.PlayerActivity;
 import com.oxootv.spagreen.utils.PreferenceUtils;
 import com.oxootv.spagreen.R;
@@ -49,6 +50,7 @@ import com.oxootv.spagreen.utils.PaidDialog;
 import com.oxootv.spagreen.video_service.PlaybackModel;
 import com.oxootv.spagreen.video_service.VideoPlaybackActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -65,6 +67,7 @@ public class CustomRowsFragment extends RowsSupportFragment {
     private LiveTvCardPresenter liveTvCardPresenter;
     private View v;
     private LeanbackActivity activity;
+    private List<HomeContent> homeContents = new ArrayList<>();
     private int menuPos;
 
 
@@ -347,13 +350,13 @@ public class CustomRowsFragment extends RowsSupportFragment {
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         HomeApi api = retrofit.create(HomeApi.class);
-        Call<List<HomeContent>> call = api.getHomeContent(Config.API_KEY);
-        call.enqueue(new Callback<List<HomeContent>>() {
+        Call<HomeContentList> call = api.getHomeContent();
+        call.enqueue(new Callback<HomeContentList>() {
             @Override
-            public void onResponse(Call<List<HomeContent>> call, Response<List<HomeContent>> response) {
+            public void onResponse(Call<HomeContentList> call, Response<HomeContentList> response) {
 
                 if (response.isSuccessful()) {
-                    List<HomeContent> homeContents = response.body();
+                     homeContents = response.body().getResult();
                     //Log.d("size:", homeContents.size()+"");
 
                     if (homeContents.size() > 0) {
@@ -373,7 +376,7 @@ public class CustomRowsFragment extends RowsSupportFragment {
             }
 
             @Override
-            public void onFailure(Call<List<HomeContent>> call, Throwable t) {
+            public void onFailure(Call<HomeContentList> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 // hide the spinner

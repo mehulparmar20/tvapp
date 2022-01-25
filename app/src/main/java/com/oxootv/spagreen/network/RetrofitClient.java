@@ -16,15 +16,18 @@ public class RetrofitClient {
 
     public static Retrofit getRetrofitInstance() {
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        TokenInterceptor interceptor=new TokenInterceptor();
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new BasicAuthInterceptor(API_USER_NAME, API_PASSWORD)).build();
+                .addInterceptor(interceptor).build();
+//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        OkHttpClient client = new OkHttpClient.Builder()
+//                .addInterceptor(new BasicAuthInterceptor(API_USER_NAME, API_PASSWORD)).build();
 
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(Config.API_SERVER_URL + API_EXTENSION)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl(Config.API_SERVER_URL)
+                    .addConverterFactory    (GsonConverterFactory.create())
                     .client(client)
                     .build();
         }
