@@ -22,7 +22,7 @@ public class VideoContent implements Serializable {
     @SerializedName("is_paid")
     @Expose
     private String isPaid;
-    @SerializedName("is_tvseries")
+    @SerializedName("tv_series_id")
     @Expose
     private String isTvseries;
     @SerializedName("release")
@@ -37,7 +37,7 @@ public class VideoContent implements Serializable {
     @SerializedName("thumbnail")
     @Expose
     private String thumbnailUrl;
-    @SerializedName("poster_url")
+    @SerializedName("slide_image")
     @Expose
     private String posterUrl;
     @SerializedName("stream_from")

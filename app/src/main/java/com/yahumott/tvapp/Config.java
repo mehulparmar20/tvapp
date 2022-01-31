@@ -2,10 +2,10 @@ package com.yahumott.tvapp;
 
 public class Config {
     // copy your api url from php admin dashboard & paste below
-    public static final String API_SERVER_URL = "http://demo.redtvlive.com/oxoo/v120/api/v100/";
+    public static final String API_SERVER_URL = "https://yahumott.com/public/api/";
 
     //copy your api key from php admin dashboard & paste below
-    public static final String API_KEY = "spagreen";
+    public static final String API_KEY = "";
 
     //put your envato purchase code here
     public static final String PURCHASE_CODE = "xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxx-xxxxxxxxxxx";
