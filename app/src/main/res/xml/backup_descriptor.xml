@@ -3,7 +3,7 @@
     <!-- TODO Remove the following "exclude" elements to make them a part of the auto backup -->
     <exclude
         domain="database"
-        path="com.oxoo.spagreen.db" />
+        path="com.yahumott.tvapp.db" />
     <!-- Exclude the shared preferences file that contains the GCM registrationId -->
     <exclude
         domain="sharedpref"
