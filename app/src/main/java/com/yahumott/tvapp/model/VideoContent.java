@@ -37,7 +37,7 @@ public class VideoContent implements Serializable {
     @SerializedName("thumbnail")
     @Expose
     private String thumbnailUrl;
-    @SerializedName("slide_image")
+    @SerializedName("poster")
     @Expose
     private String posterUrl;
     @SerializedName("stream_from")

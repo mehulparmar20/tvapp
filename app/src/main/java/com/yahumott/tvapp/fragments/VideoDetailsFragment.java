@@ -152,6 +152,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
 
         if (type.equals("movie")) {
             // fetch movie details
+            type="M";
             getData(type, id);
             getFavStatus();
 

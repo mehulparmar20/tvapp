@@ -112,6 +112,7 @@ public class HomeFragment extends RowsSupportFragment {
             @Override
             public void onResponse(Call<List<HomeContent>> call, Response<List<HomeContent>> response) {
 
+
                 if (response.isSuccessful()) {
                     List<HomeContent> homeContents = response.body();
                     //Log.d("size:", homeContents.size()+"");

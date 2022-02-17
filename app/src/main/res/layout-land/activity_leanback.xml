@@ -18,7 +18,7 @@
         android:id="@+id/logo"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/logo_dark"
+        android:src="@drawable/final_logo"
         android:layout_marginTop="27dp"
         android:layout_marginEnd="56dp"
         android:layout_gravity="top|end"

@@ -46,7 +46,7 @@ public class CustomHeadersFragment extends HeadersSupportFragment {
         });
 
         setHeaderAdapter();
-        customSetBackground(R.color.colorPrimary);
+        customSetBackground(R.color.neongreen);
         setCustomPadding();
 
         VerticalGridView gridView = ((LeanbackActivity) getActivity()).getVerticalGridView(this);

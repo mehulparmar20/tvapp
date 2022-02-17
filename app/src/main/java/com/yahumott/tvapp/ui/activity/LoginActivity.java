@@ -13,11 +13,14 @@ import com.yahumott.tvapp.Config;
 import com.yahumott.tvapp.Constants;
 import com.yahumott.tvapp.R;
 import com.yahumott.tvapp.database.DatabaseHelper;
+import com.yahumott.tvapp.model.ActiveStatus;
 import com.yahumott.tvapp.model.User;
 import com.yahumott.tvapp.network.RetrofitClient;
 import com.yahumott.tvapp.network.api.LoginApi;
+import com.yahumott.tvapp.network.api.SubscriptionApi;
 import com.yahumott.tvapp.utils.ToastMsg;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -80,7 +83,7 @@ public class LoginActivity extends Activity {
                         preferences.commit();
 
                         //save user login time, expire time
-                        updateSubscriptionStatus(user.getUserId());
+                        updateSubscriptionStatus(user.getUserId(),user.getaccess_token());
 
                     } else {
                         new ToastMsg(LoginActivity.this).toastIconError(response.body().getStatus());
@@ -104,47 +107,48 @@ public class LoginActivity extends Activity {
         return m.matches();
     }
 
-    public void updateSubscriptionStatus(String userId) {
+    public void updateSubscriptionStatus(String userId, String access_token) {
         //get saved user id
-        Intent intent = new Intent(LoginActivity.this, LeanbackActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
-        startActivity(intent);
-        finish();
-        progressBar.setVisibility(View.GONE);
-//        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
-//        SubscriptionApi subscriptionApi = retrofit.create(SubscriptionApi.class);
-//
-//        Call<ActiveStatus> call = subscriptionApi.getActiveStatus(Config.API_KEY, userId);
-//        call.enqueue(new Callback<ActiveStatus>() {
-//            @Override
-//            public void onResponse(Call<ActiveStatus> call, Response<ActiveStatus> response) {
-//                if (response.code() == 200) {
-//                    if (response.body() != null) {
-//                        ActiveStatus activeStatus = response.body();
-//                        DatabaseHelper db = new DatabaseHelper(LoginActivity.this);
-//
-//                        if (db.getActiveStatusCount() > 1) {
-//                            db.deleteAllActiveStatusData();
-//                        } else {
-//
-//                            if (db.getActiveStatusCount() == 0) {
-//                                db.insertActiveStatusData(activeStatus);
-//                            } else {
-//                                db.updateActiveStatus(activeStatus, 1);
-//                            }
-//                        }
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ActiveStatus> call, Throwable t) {
-//                t.printStackTrace();
-//            }
-//        });
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(access_token);
+        SubscriptionApi subscriptionApi = retrofit.create(SubscriptionApi.class);
+
+        Call<ActiveStatus> call = subscriptionApi.getActiveStatus( userId);
+        call.enqueue(new Callback<ActiveStatus>() {
+            @Override
+            public void onResponse(Call<ActiveStatus> call, Response<ActiveStatus> response) {
+                Log.d("response_sub", response.toString());
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        ActiveStatus activeStatus = response.body();
+                        DatabaseHelper db = new DatabaseHelper(LoginActivity.this);
+
+                        if (db.getActiveStatusCount() > 1) {
+                            db.deleteAllActiveStatusData();
+                        } else {
+
+                            if (db.getActiveStatusCount() == 0) {
+                                db.insertActiveStatusData(activeStatus);
+                            } else {
+                                db.updateActiveStatus(activeStatus, 1);
+                            }
+                        }
+                        Intent intent = new Intent(LoginActivity.this, LeanbackActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+                        startActivity(intent);
+                        finish();
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ActiveStatus> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }

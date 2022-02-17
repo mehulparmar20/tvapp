@@ -23,7 +23,7 @@ public class HomeContent implements Serializable {
     @SerializedName("slug")
     @Expose
     private String slug;
-    @SerializedName("url")
+    @SerializedName("poster")
     @Expose
     private String url;
     @SerializedName("content")

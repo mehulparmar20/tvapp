@@ -97,7 +97,7 @@ public class PreferenceUtils {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         SubscriptionApi subscriptionApi = retrofit.create(SubscriptionApi.class);
 
-        Call<ActiveStatus> call = subscriptionApi.getActiveStatus(Config.API_KEY, userId);
+        Call<ActiveStatus> call = subscriptionApi.getActiveStatus(userId);
         call.enqueue(new Callback<ActiveStatus>() {
             @Override
             public void onResponse(Call<ActiveStatus> call, Response<ActiveStatus> response) {

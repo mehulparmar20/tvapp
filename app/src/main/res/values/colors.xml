@@ -3,7 +3,7 @@
     <color name="colorPrimary">#ED1C24</color>
     <color name="colorPrimaryDark">#C9181F</color>
     <color name="colorAccent">#ED1C24</color>
-
+    <color name="neongreen">#061208</color>
     <color name="colorButtonFocusedTV">#ED1C24</color>
     <color name="colorButtonPressedTV">#C9181F</color>
     <color name="colorButtonSelectedTV">#78909C</color>
