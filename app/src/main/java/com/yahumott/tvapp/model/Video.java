@@ -8,19 +8,19 @@ import java.util.List;
 
 public class Video implements Serializable {
 
-    @SerializedName("video_file_id")
+    @SerializedName("movie_id")
     @Expose
     private String videoFileId;
     @SerializedName("label")
     @Expose
     private String label;
-    @SerializedName("stream_key")
-    @Expose
-    private String streamKey;
-    @SerializedName("file_type")
+//    @SerializedName("stream_key")
+//    @Expose
+//    private String streamKey;
+    @SerializedName("type")
     @Expose
     private String fileType;
-    @SerializedName("file_url")
+    @SerializedName("iframeurl")
     @Expose
     private String fileUrl;
     @SerializedName("subtitle")
@@ -43,13 +43,13 @@ public class Video implements Serializable {
         this.label = label;
     }
 
-    public String getStreamKey() {
-        return streamKey;
-    }
-
-    public void setStreamKey(String streamKey) {
-        this.streamKey = streamKey;
-    }
+//    public String getStreamKey() {
+//        return streamKey;
+//    }
+//
+//    public void setStreamKey(String streamKey) {
+//        this.streamKey = streamKey;
+//    }
 
     public String getFileType() {
         return fileType;

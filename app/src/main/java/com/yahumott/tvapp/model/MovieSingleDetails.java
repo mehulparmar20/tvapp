@@ -44,6 +44,9 @@ public class MovieSingleDetails implements Serializable {
     @SerializedName("poster_url")
     @Expose
     private String posterUrl;
+    @SerializedName("status")
+    @Expose
+    private String status;
     @SerializedName("videos")
     @Expose
     private List<Video> videos = null;
@@ -62,10 +65,8 @@ public class MovieSingleDetails implements Serializable {
     @SerializedName("writer")
     @Expose
     private List<Writer> writer = null;
+
     @SerializedName("cast")
-    @Expose
-    private List<Cast> cast = null;
-    @SerializedName("cast_and_crew")
     @Expose
     private List<CastAndCrew> castAndCrew = null;
     @SerializedName("season")
@@ -87,6 +88,13 @@ public class MovieSingleDetails implements Serializable {
     private List<MediaSource> mediaSource;
     private List<Channel> channelList;
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getVideosId() {
         return videosId;
@@ -232,13 +240,7 @@ public class MovieSingleDetails implements Serializable {
         this.downloadLinks = downloadLinks;
     }
 
-    public List<Cast> getCast() {
-        return cast;
-    }
 
-    public void setCast(List<Cast> cast) {
-        this.cast = cast;
-    }
 
     public List<CastAndCrew> getCastAndCrew() {
         return castAndCrew;

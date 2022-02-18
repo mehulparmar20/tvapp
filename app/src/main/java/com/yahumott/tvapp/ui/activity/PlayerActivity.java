@@ -187,9 +187,9 @@ public class PlayerActivity extends Activity {
                 videos = model.getVideoList();
             //hide subtitle button if there is no subtitle
             if (video != null) {
-                if (video.getSubtitle().isEmpty()) {
-                    subtitleButton.setVisibility(View.GONE);
-                }
+//                if (video.getSubtitle().isEmpty()) {
+//                    subtitleButton.setVisibility(View.GONE);
+//                }
             }else {
                 subtitleButton.setVisibility(View.GONE);
             }

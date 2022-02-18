@@ -1,13 +1,17 @@
 package com.yahumott.tvapp.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,6 +39,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yahumott.tvapp.Config;
+import com.yahumott.tvapp.Constants;
 import com.yahumott.tvapp.ui.activity.PlayerActivity;
 import com.yahumott.tvapp.utils.PreferenceUtils;
 import com.yahumott.tvapp.R;
@@ -90,14 +95,17 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
     private static final int ACTION_WATCH_LATER = 2;
     private boolean favStatus;
     private String userId = "";
-    private String isPaid = "";
+    private String isStatus = "";
+    public String token="";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mContext = getContext();
-
+        SharedPreferences prefs = getActivity().getSharedPreferences(Constants.USER_LOGIN_STATUS, MODE_PRIVATE);
+        token = prefs.getString("access_token","");
+        Log.d("token", token);
         type = getActivity().getIntent().getStringExtra("type");
         id = getActivity().getIntent().getStringExtra("id");
         thumbUrl = getActivity().getIntent().getStringExtra("thumbImage");
@@ -180,7 +188,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
         DatabaseHelper db = new DatabaseHelper(getContext());
         final String status = db.getActiveStatusData().getStatus();
 
-        if (isPaid.equals("1")) {
+        if (isStatus.equals("1")) {
             if (status.equals("active")) {
                 if (PreferenceUtils.isValid(getActivity())) {
                     adapter.set(ACTION_PLAY, new Action(ACTION_PLAY, getResources().getString(R.string.play_now)));
@@ -209,7 +217,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
             public void onActionClicked(Action action) {
                 if (action.getId() == 1) {
                     if (movieDetails != null) {
-                        if (movieDetails.getIsPaid().equals("1")) {
+                        if (movieDetails.getStatus().equals("1")) {
                             if (status.equals("active")) {
                                 if (PreferenceUtils.isValid(getActivity())) {
                                     openServerDialog(movieDetails.getVideos());
@@ -395,17 +403,20 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
         final FragmentManager fm = getFragmentManager();
         fm.beginTransaction().add(R.id.details_fragment, spinnerFragment).commit();
 
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(token);
         DetailsApi api = retrofit.create(DetailsApi.class);
-        Call<MovieSingleDetails> call = api.getSingleDetail(Config.API_KEY, vtype, vId);
+        Call<MovieSingleDetails> call = api.getSingleDetail(vId,vtype);
+        Log.d("api_resp", api.toString());
         call.enqueue(new Callback<MovieSingleDetails>() {
             @Override
             public void onResponse(Call<MovieSingleDetails> call, Response<MovieSingleDetails> response) {
+                Log.d("single_movie", response.toString());
                 if (response.code() == 200) {
+
                     MovieSingleDetails singleDetails = new MovieSingleDetails();
                     singleDetails = response.body();
                     singleDetails.setType("movie");
-                    isPaid = response.body().getIsPaid();
+                    isStatus = response.body().getStatus();
                     setMovieActionAdapter(favStatus);
                     bindMovieDetails(response.body());
 
@@ -415,10 +426,10 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
                     };
 
                     ArrayObjectAdapter rowAdapter = new ArrayObjectAdapter(new RelatedPresenter(getActivity()));
-                    for (RelatedMovie model : response.body().getRelatedMovie()) {
-                        model.setType("movie");
-                        rowAdapter.add(model);
-                    }
+//                    for (RelatedMovie model : response.body().getRelatedMovie()) {
+//                        model.setType("movie");
+//                        rowAdapter.add(model);
+//                    }
                     HeaderItem header = new HeaderItem(0, subcategories[0]);
                     mAdapter.add(new ListRow(header, rowAdapter));
 
@@ -444,7 +455,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         DetailsApi api = retrofit.create(DetailsApi.class);
-        Call<MovieSingleDetails> call = api.getSingleDetail(Config.API_KEY, vtype, vId);
+        Call<MovieSingleDetails> call = api.getSingleDetail(vtype, vId);
         call.enqueue(new Callback<MovieSingleDetails>() {
             @Override
             public void onResponse(Call<MovieSingleDetails> call, Response<MovieSingleDetails> response) {
@@ -452,7 +463,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
                     MovieSingleDetails singleDetails = new MovieSingleDetails();
                     singleDetails = response.body();
                     singleDetails.setType("tvseries");
-                    isPaid = response.body().getIsPaid();
+                    isStatus = response.body().getIsPaid();
                     setTvSeriesActionAdapter(favStatus);
                     bindMovieDetails(response.body());
 
@@ -483,7 +494,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
                             Season season = seasons.get(i);
                             ArrayObjectAdapter rowAdapter = new ArrayObjectAdapter(new EpisodPresenter());
                             for (Episode episode : season.getEpisodes()) {
-                                episode.setIsPaid(isPaid);
+                                episode.setIsPaid(isStatus);
                                 episode.setSeasonName(season.getSeasonsName());
                                 episode.setTvSeriesTitle(singleDetails.getTitle());
                                 episode.setCardBackgroundUrl(singleDetails.getPosterUrl());

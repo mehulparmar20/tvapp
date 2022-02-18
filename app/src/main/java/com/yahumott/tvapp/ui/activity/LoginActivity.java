@@ -79,6 +79,7 @@ public class LoginActivity extends Activity {
                         }
                         SharedPreferences.Editor preferences = getSharedPreferences(Constants.USER_LOGIN_STATUS, MODE_PRIVATE).edit();
                         preferences.putBoolean(Constants.USER_LOGIN_STATUS, true);
+                        preferences.putString("access_token",user.getaccess_token());
                         preferences.apply();
                         preferences.commit();
 

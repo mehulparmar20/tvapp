@@ -10,7 +10,6 @@ import retrofit2.http.Query;
 public interface DetailsApi {
 
     @GET("movie_detail")
-    Call<MovieSingleDetails> getSingleDetail(@Header("API-KEY") String apiKey,
-                                             @Query("type") String videoType,
-                                             @Query("id") String videoId);
+    Call<MovieSingleDetails> getSingleDetail(@Query("movie_id") String videoId,
+                                             @Query("type") String videoType);
 }
