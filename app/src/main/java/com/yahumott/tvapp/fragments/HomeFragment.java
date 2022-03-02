@@ -185,7 +185,11 @@ public class HomeFragment extends RowsSupportFragment {
                     videoContent.setType("movie");
                 } else if (homeContents.get(i).getType().equalsIgnoreCase("tvseries")) {
                     videoContent.setType("tvseries");
-                } else if (homeContents.get(i).getType().equalsIgnoreCase("slider")) {
+                }
+                else if(homeContents.get(i).getType().equalsIgnoreCase("genre")) {
+                    videoContent.setType("genre");
+                }
+                else if (homeContents.get(i).getType().equalsIgnoreCase("slider")) {
                     if (videoContent.getIsTvseries()!="null") {
                         videoContent.setType("tvseries");
                     } else if (videoContent.getIsTvseries()=="null") {

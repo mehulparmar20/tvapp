@@ -172,7 +172,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
     }
 
     public void setActionAdapter(boolean favAdded) {
-        if (type.equals("movie")) {
+        if (type.equals("M")) {
             setMovieActionAdapter(favAdded);
         } else if (type.equals("tvseries")) {
             setTvSeriesActionAdapter(favAdded);
@@ -524,14 +524,16 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
 
     private void addToFav() {
 
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(token);
         FavoriteApi api = retrofit.create(FavoriteApi.class);
-        Call<FavoriteModel> call = api.addToFavorite(Config.API_KEY, userId, id);
+        Call<FavoriteModel> call = api.addToFavorite(userId, id);
         call.enqueue(new Callback<FavoriteModel>() {
             @Override
             public void onResponse(Call<FavoriteModel> call, Response<FavoriteModel> response) {
+                Log.d("add_fav", response.toString());
                 if (response.code() == 200) {
-                    if (response.body().getStatus().equalsIgnoreCase("success")) {
+
+                    if (response.body().getStatus().equalsIgnoreCase("0")) {
                         favStatus = true;
                         new ToastMsg(getActivity()).toastIconSuccess(response.body().getMessage());
                         setActionAdapter(favStatus);
@@ -551,9 +553,9 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
     }
 
     private void getFavStatus() {
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(token);
         FavoriteApi api = retrofit.create(FavoriteApi.class);
-        Call<FavoriteModel> call = api.verifyFavoriteList(Config.API_KEY, userId, id);
+        Call<FavoriteModel> call = api.verifyFavoriteList(userId, id);
         call.enqueue(new Callback<FavoriteModel>() {
             @Override
             public void onResponse(Call<FavoriteModel> call, Response<FavoriteModel> response) {
@@ -578,9 +580,9 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
     }
 
     private void removeFromFav() {
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(token);
         FavoriteApi api = retrofit.create(FavoriteApi.class);
-        Call<FavoriteModel> call = api.removeFromFavorite(Config.API_KEY, userId, id);
+        Call<FavoriteModel> call = api.removeFromFavorite(userId, id);
         call.enqueue(new Callback<FavoriteModel>() {
             @Override
             public void onResponse(Call<FavoriteModel> call, Response<FavoriteModel> response) {
