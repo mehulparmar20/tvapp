@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -58,13 +59,13 @@ public class SignUpActivity extends Activity {
         progressBar.setVisibility(View.VISIBLE);
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         SignUpApi signUpApi = retrofit.create(SignUpApi.class);
-        Call<User> call = signUpApi.signUp(Config.API_KEY, email, pass, name);
+        Call<User> call = signUpApi.signUp(email, pass, name);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
-                    if (response.body().getStatus().equals("success")) {
-                        new ToastMsg(SignUpActivity.this).toastIconSuccess("Successfully registered");
+//                    if (response.body().getStatus().equals("success")) {
+
                         User user = response.body();
                         DatabaseHelper db = new DatabaseHelper(SignUpActivity.this);
                         if (db.getUserDataCount() > 1) {
@@ -76,16 +77,21 @@ public class SignUpActivity extends Activity {
                                 db.updateUserData(user, 1);
                             }
                         }
-                        SharedPreferences.Editor preferences = getSharedPreferences(Constants.USER_LOGIN_STATUS, MODE_PRIVATE).edit();
-                        preferences.putBoolean(Constants.USER_LOGIN_STATUS, true);
-                        preferences.apply();
-                        preferences.commit();
+                    SharedPreferences.Editor preferences = getSharedPreferences(Constants.USER_LOGIN_STATUS, MODE_PRIVATE).edit();
+                    preferences.putBoolean(Constants.USER_LOGIN_STATUS, true);
+                    preferences.putString("access_token",user.getaccess_token());
+                    preferences.apply();
+                    preferences.commit();
 
                         //save user login time, expire time
-                        updateSubscriptionStatus(user.getUserId());
-                    } else if (response.body().getStatus().equals("error")) {
-                        new ToastMsg(SignUpActivity.this).toastIconError(response.body().getStatus());
-                    }
+                        updateSubscriptionStatus(user.getUserId(),user.getaccess_token());
+//                    } else if (response.body().getStatus().equals("error")) {
+//                        new ToastMsg(SignUpActivity.this).toastIconError(response.body().getStatus());
+//                    }
+//                    progressBar.setVisibility(View.GONE);
+                }
+                else {
+                    new ToastMsg(SignUpActivity.this).toastIconError(response.body().getStatus());
                     progressBar.setVisibility(View.GONE);
                 }
             }
@@ -105,15 +111,17 @@ public class SignUpActivity extends Activity {
         return m.matches();
     }
 
-    public void updateSubscriptionStatus(String userId) {
+    public void updateSubscriptionStatus(String userId,String access_token) {
         //get saved user id
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        new ToastMsg(SignUpActivity.this).toastIconSuccess("Successfully registered");
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(access_token);
         SubscriptionApi subscriptionApi = retrofit.create(SubscriptionApi.class);
         Call<ActiveStatus> call = subscriptionApi.getActiveStatus(userId);
         call.enqueue(new Callback<ActiveStatus>() {
             @Override
             public void onResponse(Call<ActiveStatus> call, Response<ActiveStatus> response) {
                 if (response.code() == 200) {
+                    Log.d("signup_res", response.toString());
                     if (response.body() != null) {
                         ActiveStatus activeStatus = response.body();
                         DatabaseHelper db = new DatabaseHelper(SignUpActivity.this);

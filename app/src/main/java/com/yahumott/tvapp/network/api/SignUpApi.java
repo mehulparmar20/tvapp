@@ -11,9 +11,8 @@ import retrofit2.http.POST;
 
 public interface SignUpApi {
     @FormUrlEncoded
-    @POST("signup")
-    Call<User> signUp(@Header("API-KEY") String apiKey,
-                      @Field("email") String email,
+    @POST("register")
+    Call<User> signUp(@Field("email") String email,
                       @Field("password") String password,
                       @Field("name") String name);
 

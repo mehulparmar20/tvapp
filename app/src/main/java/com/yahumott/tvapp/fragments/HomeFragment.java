@@ -187,7 +187,7 @@ public class HomeFragment extends RowsSupportFragment {
                     videoContent.setType("tvseries");
                 }
                 else if(homeContents.get(i).getType().equalsIgnoreCase("genre")) {
-                    videoContent.setType("genre");
+                    videoContent.setType("genres");
                 }
                 else if (homeContents.get(i).getType().equalsIgnoreCase("slider")) {
                     if (videoContent.getIsTvseries()!="null") {

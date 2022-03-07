@@ -1,8 +1,11 @@
 package com.yahumott.tvapp.fragments;
 
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,6 +23,7 @@ import androidx.leanback.widget.VerticalGridPresenter;
 
 
 import com.yahumott.tvapp.Config;
+import com.yahumott.tvapp.Constants;
 import com.yahumott.tvapp.NetworkInst;
 import com.yahumott.tvapp.R;
 import com.yahumott.tvapp.model.Genre;
@@ -50,6 +54,7 @@ public class GenreFragment extends VerticalGridSupportFragment {
     private List<Genre> genres = new ArrayList<>();
     private ArrayObjectAdapter mAdapter;
     private LeanbackActivity activity;
+    String token="";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +65,9 @@ public class GenreFragment extends VerticalGridSupportFragment {
         activity.hideLogo();
         setTitle(getResources().getString(R.string.genre));
         //bgHelper = new BackgroundHelper(getActivity());
-
+        SharedPreferences prefs = getActivity().getSharedPreferences(Constants.USER_LOGIN_STATUS, MODE_PRIVATE);
+        token = prefs.getString("access_token","");
+        Log.d("token", token);
         setOnItemViewClickedListener(getDefaultItemViewClickedListener());
         setOnItemViewSelectedListener(getDefaultItemSelectedListener());
 
@@ -73,7 +80,7 @@ public class GenreFragment extends VerticalGridSupportFragment {
         mAdapter = new ArrayObjectAdapter(new GenrePresenter());
         setAdapter(mAdapter);
 
-        fetchGenreData(pageCount);
+        fetchGenreData(pageCount, token);
 
     }
 
@@ -111,7 +118,7 @@ public class GenreFragment extends VerticalGridSupportFragment {
         };
     }
 
-    public void fetchGenreData(int pageCount) {
+    public void fetchGenreData(int pageCount, String token) {
 
 
         if (!new NetworkInst(activity).isNetworkAvailable()) {
@@ -125,9 +132,9 @@ public class GenreFragment extends VerticalGridSupportFragment {
         final FragmentManager fm = getFragmentManager();
         fm.beginTransaction().add(R.id.custom_frame_layout, mSpinnerFragment).commit();
 
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(token);
         GenreApi api = retrofit.create(GenreApi.class);
-        Call<List<Genre>> call = api.getGenres(Config.API_KEY, pageCount);
+        Call<List<Genre>> call = api.getGenres(pageCount);
         call.enqueue(new Callback<List<Genre>>() {
             @Override
             public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {

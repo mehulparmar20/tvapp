@@ -13,6 +13,6 @@ import retrofit2.http.Query;
 public interface GenreApi {
 
     @GET("all_genre")
-    Call<List<Genre>> getGenres(@Header("API-KEY") String apiKey,
+    Call<List<Genre>> getGenres(
                                 @Query("page") int page);
 }
