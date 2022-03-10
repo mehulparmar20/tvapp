@@ -398,12 +398,12 @@ public class CustomRowsFragment extends RowsSupportFragment {
             @Override
             public void onResponse(Call<List<LiveTvCategory>> call, Response<List<LiveTvCategory>> response) {
 
-                List<LiveTvCategory> liveTvCategories = response.body();
-                if (liveTvCategories.size() > 0) {
-                    loadChannelRows(liveTvCategories);
-                } else {
-                    Toast.makeText(activity, getResources().getString(R.string.no_data_found), Toast.LENGTH_SHORT).show();
-                }
+//                List<LiveTvCategory> liveTvCategories = response.body();
+//                if (liveTvCategories.size() > 0) {
+//                    loadChannelRows(liveTvCategories);
+//                } else {
+//                    Toast.makeText(activity, getResources().getString(R.string.no_data_found), Toast.LENGTH_SHORT).show();
+//                }
 
                 // hide the spinner
                 fm.beginTransaction().remove(mSpinnerFragment).commitAllowingStateLoss();

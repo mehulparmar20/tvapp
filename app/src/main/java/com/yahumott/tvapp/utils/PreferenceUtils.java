@@ -1,5 +1,7 @@
 package com.yahumott.tvapp.utils;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -93,8 +95,11 @@ public class PreferenceUtils {
 
     public static void updateSubscriptionStatus(final Context context) {
         //get saved user id
+         String token = "";
         String userId = getUserId(context);
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        SharedPreferences prefs = context.getSharedPreferences(Constants.USER_LOGIN_STATUS, MODE_PRIVATE);
+        token = prefs.getString("access_token","");
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(token);
         SubscriptionApi subscriptionApi = retrofit.create(SubscriptionApi.class);
 
         Call<ActiveStatus> call = subscriptionApi.getActiveStatus(userId);
@@ -102,6 +107,7 @@ public class PreferenceUtils {
             @Override
             public void onResponse(Call<ActiveStatus> call, Response<ActiveStatus> response) {
                 if (response.code() == 200) {
+                    Log.d("sub_status", response.toString());
                     ActiveStatus activeStatus = response.body();
                     DatabaseHelper db = new DatabaseHelper(context);
 

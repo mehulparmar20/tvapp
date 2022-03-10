@@ -128,7 +128,7 @@ public class PlayerActivity extends Activity {
         category = model.getCategory();
         if (model.getVideo() != null)
             video = model.getVideo();
-        if (model.getCategory().equals("movie") && mChannelId > -1L && model.getIsPaid().equals("1")) {
+        if (model.getCategory().equals("movie")  ) {
             //Paid Content from Channel
             //check user has subscription or not
             //if not, send user to VideoDetailsActivity
@@ -373,6 +373,11 @@ public class PlayerActivity extends Activity {
                     video.setVideoList(model.getVideoList());
                     video.setVideoUrl(obj.getFileUrl());
                     video.setVideoType(obj.getFileType());
+                    video.setVideoType(obj.getReady_url());
+                    video.setVideoType(obj.getUrl_360());
+                    video.setVideoType(obj.getUrl_480());
+                    video.setVideoType(obj.getUrl_720());
+                    video.setVideoType(obj.getUrl_1080());
                     video.setBgImageUrl(model.getBgImageUrl());
                     video.setCardImageUrl(model.getCardImageUrl());
                     video.setIsPaid(model.getIsPaid());

@@ -164,7 +164,7 @@ public class TvSeriesFragment extends VerticalGridSupportFragment {
                     if (movies.size() == 0) {
                         dataAvailable = false;
                         if (pageCount != 2) {
-                            Toast.makeText(activity, getResources().getString(R.string.no_data_found), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, "No Data Found", Toast.LENGTH_SHORT).show();
                         }
                     }
 

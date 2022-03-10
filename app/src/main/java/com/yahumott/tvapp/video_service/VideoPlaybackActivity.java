@@ -19,11 +19,11 @@ import java.util.List;
 public class VideoPlaybackActivity extends Activity {
     public static final String TAG = "VideoExampleActivity";
     private static final int MAKE_BROWSABLE_REQUEST_CODE = 9001;
-    public static final String EXTRA_VIDEO = "com.oxootv.spagreen.recommendations.extra.MOVIE";
+    public static final String EXTRA_VIDEO = "com.yahumott.tvapp.recommendations.extra.MOVIE";
     public static final String EXTRA_CHANNEL_ID =
-            "com.oxootv.spagreen.recommendations.extra.CHANNEL_ID";
+            "com.yahumott.tvapp.recommendations.extra.CHANNEL_ID";
     public static final String EXTRA_POSITION =
-            "com.oxootv.spagreen.recommendations.extra.POSITION";
+            "com.yahumott.tvapp.recommendations.extra.POSITION";
 
     private PlaybackModel playbackModel;
     boolean channelExists;

@@ -1,5 +1,6 @@
 package com.yahumott.tvapp.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +49,7 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.OriginalVi
     }
 
     @Override
-    public void onBindViewHolder(final OriginalViewHolder holder, final int position) {
+    public void onBindViewHolder(final OriginalViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
         Video obj = videos.get(position);
         holder.serverNameTv.setText(obj.getLabel());

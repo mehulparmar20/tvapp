@@ -1,6 +1,9 @@
 package com.yahumott.tvapp.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.yahumott.tvapp.Config;
+import com.yahumott.tvapp.Constants;
 import com.yahumott.tvapp.NetworkInst;
 import com.yahumott.tvapp.utils.PreferenceUtils;
 import com.yahumott.tvapp.R;
@@ -65,7 +69,7 @@ public class FavouriteFragment extends VerticalGridSupportFragment {
     private List<Movie> movies = new ArrayList<>();
     private boolean dataAvailable;
     private int pageCount = 1;
-
+    String token ="";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +81,9 @@ public class FavouriteFragment extends VerticalGridSupportFragment {
         activity.hideLogo();
 
         setTitle(getResources().getString(R.string.favorite));
-
+        SharedPreferences prefs = getActivity().getSharedPreferences(Constants.USER_LOGIN_STATUS, MODE_PRIVATE);
+        token = prefs.getString("access_token","");
+        Log.d("token", token);
         bgHelper = new BackgroundHelper(getActivity());
 
         setOnItemViewClickedListener(getDefaultItemViewClickedListener());
@@ -94,7 +100,7 @@ public class FavouriteFragment extends VerticalGridSupportFragment {
         mAdapter = new ArrayObjectAdapter(new VerticalCardPresenter(FAVORITE));
         setAdapter(mAdapter);
 
-        fetchFavouriteData();
+        fetchFavouriteData(token);
 
     }
 
@@ -131,7 +137,7 @@ public class FavouriteFragment extends VerticalGridSupportFragment {
                     int itemPos = mAdapter.indexOf(item);
                     if (itemPos == movies.size() - 1) {
                         pageCount++;
-                        fetchFavouriteData();
+                        fetchFavouriteData(token);
                     }
                 }
 
@@ -147,7 +153,7 @@ public class FavouriteFragment extends VerticalGridSupportFragment {
     }
 
 
-    public void fetchFavouriteData() {
+    public void fetchFavouriteData(String token) {
 
         if (!new NetworkInst(activity).isNetworkAvailable()) {
             Intent intent = new Intent(activity, ErrorActivity.class);
@@ -163,12 +169,13 @@ public class FavouriteFragment extends VerticalGridSupportFragment {
 
         String userId = PreferenceUtils.getUserId(getContext());
 
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(token);
         FavouriteApi api = retrofit.create(FavouriteApi.class);
-        Call<List<Movie>> call = api.getFavoriteList(Config.API_KEY, userId, pageCount);
+        Call<List<Movie>> call = api.getFavoriteList(userId);
         call.enqueue(new Callback<List<Movie>>() {
             @Override
             public void onResponse(Call<List<Movie>> call, retrofit2.Response<List<Movie>> response) {
+                Log.d("response", response.toString());
                 List<Movie> movieList = response.body();
                 if (movieList.size() <= 0) {
                     dataAvailable = false;

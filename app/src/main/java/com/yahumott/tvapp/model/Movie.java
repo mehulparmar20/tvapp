@@ -13,20 +13,20 @@ public class Movie implements Serializable {
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("description")
+    @SerializedName("detail")
     @Expose
     private String description;
     @SerializedName("slug")
     @Expose
     private String slug;
-//    @SerializedName("release")
-//    @Expose
+    @SerializedName("released")
+    @Expose
     private String release;
-//    @SerializedName("is_tvseries")
-//    @Expose
+    @SerializedName("series")
+    @Expose
     private String isTvseries;
-//    @SerializedName("runtime")
-//    @Expose
+    @SerializedName("duration")
+    @Expose
     private String runtime;
 //    @SerializedName("video_quality")
 //    @Expose
@@ -37,9 +37,8 @@ public class Movie implements Serializable {
     @SerializedName("poster")
     @Expose
     private String posterUrl;
-//    @SerializedName("is_paid")
-//    @Expose
-    private String isPaid;
+
+
 
     public String getVideosId() {
         return videosId;
@@ -125,11 +124,5 @@ public class Movie implements Serializable {
         this.posterUrl = posterUrl;
     }
 
-    public String getIsPaid() {
-        return isPaid;
-    }
 
-    public void setIsPaid(String isPaid) {
-        this.isPaid = isPaid;
-    }
 }

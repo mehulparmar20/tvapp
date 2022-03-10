@@ -138,6 +138,7 @@ public class GenreFragment extends VerticalGridSupportFragment {
         call.enqueue(new Callback<List<Genre>>() {
             @Override
             public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {
+                Log.d("genre_all", response.toString());
                 if (response.code() == 200) {
                     List<Genre> genreList = response.body();
                     if (genreList.size() <= 0) {

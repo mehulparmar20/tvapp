@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MovieSingleDetails implements Serializable {
 
-    @SerializedName("videos_id")
+    @SerializedName("id")
     @Expose
     private String videosId;
     @SerializedName("title")
@@ -20,28 +20,22 @@ public class MovieSingleDetails implements Serializable {
     @SerializedName("slug")
     @Expose
     private String slug;
-    @SerializedName("release")
+    @SerializedName("released")
     @Expose
     private String release;
-    @SerializedName("runtime")
+    @SerializedName("duration")
     @Expose
     private String runtime;
-    @SerializedName("video_quality")
-    @Expose
-    private String videoQuality;
+
     @SerializedName("is_tvseries")
     @Expose
     private String isTvseries;
-    @SerializedName("is_paid")
-    @Expose
-    private String isPaid;
-    @SerializedName("enable_download")
-    @Expose
-    private String enableDownload;
-    @SerializedName("thumbnail_url")
+
+
+    @SerializedName("thumbnail")
     @Expose
     private String thumbnailUrl;
-    @SerializedName("poster_url")
+    @SerializedName("poster")
     @Expose
     private String posterUrl;
     @SerializedName("status")
@@ -144,13 +138,13 @@ public class MovieSingleDetails implements Serializable {
         this.runtime = runtime;
     }
 
-    public String getVideoQuality() {
-        return videoQuality;
-    }
+//    public String getVideoQuality() {
+//        return videoQuality;
+//    }
 
-    public void setVideoQuality(String videoQuality) {
-        this.videoQuality = videoQuality;
-    }
+//    public void setVideoQuality(String videoQuality) {
+//        this.videoQuality = videoQuality;
+//    }
 
     public String getIsTvseries() {
         return isTvseries;
@@ -160,21 +154,21 @@ public class MovieSingleDetails implements Serializable {
         this.isTvseries = isTvseries;
     }
 
-    public String getIsPaid() {
-        return isPaid;
-    }
+//    public String getIsPaid() {
+//        return isPaid;
+//    }
 
-    public void setIsPaid(String isPaid) {
-        this.isPaid = isPaid;
-    }
+//    public void setIsPaid(String isPaid) {
+//        this.isPaid = isPaid;
+//    }
 
-    public String getEnableDownload() {
-        return enableDownload;
-    }
+//    public String getEnableDownload() {
+//        return enableDownload;
+//    }
 
-    public void setEnableDownload(String enableDownload) {
-        this.enableDownload = enableDownload;
-    }
+//    public void setEnableDownload(String enableDownload) {
+//        this.enableDownload = enableDownload;
+//    }
 
     public String getThumbnailUrl() {
         return thumbnailUrl;

@@ -1,7 +1,10 @@
 package com.yahumott.tvapp.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -16,6 +19,7 @@ import androidx.leanback.widget.RowPresenter;
 import androidx.leanback.widget.VerticalGridPresenter;
 
 import com.yahumott.tvapp.Config;
+import com.yahumott.tvapp.Constants;
 import com.yahumott.tvapp.model.Movie;
 import com.yahumott.tvapp.network.RetrofitClient;
 import com.yahumott.tvapp.network.api.MovieApi;
@@ -49,7 +53,7 @@ public class ItemGenreFragment extends VerticalGridSupportFragment {
     private String title;
     private String id = "";
     private ItemGenreActivity activity;
-
+    String token = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +63,9 @@ public class ItemGenreFragment extends VerticalGridSupportFragment {
         title = getActivity().getIntent().getStringExtra("title");
         id = getActivity().getIntent().getStringExtra("id");
         activity = (ItemGenreActivity) getActivity();
-
+        SharedPreferences prefs = getActivity().getSharedPreferences(Constants.USER_LOGIN_STATUS, MODE_PRIVATE);
+        token = prefs.getString("access_token","");
+        Log.d("token", token);
         setTitle(title);
         bgHelper = new BackgroundHelper(getActivity());
 
@@ -78,11 +84,11 @@ public class ItemGenreFragment extends VerticalGridSupportFragment {
         mAdapter = new ArrayObjectAdapter(new VerticalCardPresenter(MOVIE));
         setAdapter(mAdapter);
 
-        fetchMovieData(id, pageCount);
+        fetchMovieData(id, token);
 
     }
 
-    private void fetchMovieData(String id, int pageCount) {
+    private void fetchMovieData(String id, String token) {
 
         /*if (!new NetworkInst(mContext).isNetworkAvailable()) {
             Intent intent = new Intent(mContext, ErrorActivity.class);
@@ -92,18 +98,20 @@ public class ItemGenreFragment extends VerticalGridSupportFragment {
         }*/
 /*
 
+
         final SpinnerFragment mSpinnerFragment = new SpinnerFragment();
         final FragmentManager fm = getFragmentManager();
         fm.beginTransaction().add(R.id.custom_frame_layout, mSpinnerFragment).commit();
 */
 
 
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(token);
         MovieApi api = retrofit.create(MovieApi.class);
-        Call<List<Movie>> call = api.getMovieByGenre(Config.API_KEY, id, pageCount);
+        Call<List<Movie>> call = api.getMovieByGenre(id);
         call.enqueue(new Callback<List<Movie>>() {
             @Override
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+                Log.d("genre_res", response.toString());
                 if (response.code() == 200) {
                     List<Movie> movieList = response.body();
                     if (movieList.size() <= 0) {
@@ -157,7 +165,7 @@ public class ItemGenreFragment extends VerticalGridSupportFragment {
                     int itemPos = mAdapter.indexOf(item);
                     if (itemPos == movies.size() - 1) {
                         pageCount++;
-                        fetchMovieData(id, pageCount);
+                        fetchMovieData(id,token);
                     }
                 }
 

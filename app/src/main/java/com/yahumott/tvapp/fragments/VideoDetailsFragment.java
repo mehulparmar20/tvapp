@@ -378,11 +378,16 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
                     video.setVideo(obj);
                     ArrayList<Video> videoListForIntent = new ArrayList<>(videoList);
                     video.setVideoList(videoListForIntent);
-                    video.setVideoUrl(obj.getFileUrl());
+                    video.setVideoUrl(obj.getUrl_360());
                     video.setVideoType(obj.getFileType());
+//                    video.setVideoType(obj.getReady_url());
+//                    video.setVideoType(obj.getUrl_360());
+//                    video.setVideoType(obj.getUrl_480());
+//                    video.setVideoType(obj.getUrl_720());
+//                    video.setVideoType(obj.getUrl_1080());
                     video.setBgImageUrl(movieDetails.getPosterUrl());
                     video.setCardImageUrl(movieDetails.getThumbnailUrl());
-                    video.setIsPaid(movieDetails.getIsPaid());
+
 
                     Intent playerIntent = new Intent(getActivity(), PlayerActivity.class);
                     playerIntent.putExtra(VideoPlaybackActivity.EXTRA_VIDEO, video);
@@ -463,7 +468,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
                     MovieSingleDetails singleDetails = new MovieSingleDetails();
                     singleDetails = response.body();
                     singleDetails.setType("tvseries");
-                    isStatus = response.body().getIsPaid();
+                    isStatus = response.body().getStatus();
                     setTvSeriesActionAdapter(favStatus);
                     bindMovieDetails(response.body());
 
@@ -560,6 +565,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
             @Override
             public void onResponse(Call<FavoriteModel> call, Response<FavoriteModel> response) {
                 if (response.code() == 200) {
+                    Log.d("fav_status", response.toString());
                     if (response.body().getStatus().equalsIgnoreCase("success")) {
                         favStatus = true;
                         setActionAdapter(favStatus);

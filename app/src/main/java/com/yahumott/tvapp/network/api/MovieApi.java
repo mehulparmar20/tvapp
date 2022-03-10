@@ -8,6 +8,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface MovieApi {
@@ -16,10 +17,8 @@ public interface MovieApi {
     @GET("movie")
     Call<MovieList> getMovies();
 
-    @GET("content_by_genre_id")
-    Call<List<Movie>> getMovieByGenre(@Header("API-KEY") String apiKey,
-                                      @Query("id") String id,
-                                      @Query("page") int page_num);
+    @POST("genredetails")
+    Call<List<Movie>> getMovieByGenre(@Query("id") String id);
 
 
     @GET("content_by_country_id")

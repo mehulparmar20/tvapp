@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class Genre implements Serializable {
-    @SerializedName("genre_id")
+    @SerializedName("id")
     @Expose
     private String genreId;
     @SerializedName("name")
@@ -15,7 +15,7 @@ public class Genre implements Serializable {
     @SerializedName("url")
     @Expose
     private String url;
-    @SerializedName("image_url")
+    @SerializedName("thumbnail")
     @Expose
     private String imageUrl;
 

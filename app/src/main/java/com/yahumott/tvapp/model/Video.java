@@ -23,6 +23,21 @@ public class Video implements Serializable {
     @SerializedName("iframeurl")
     @Expose
     private String fileUrl;
+    @SerializedName("ready_url")
+    @Expose
+    private String ready_url;
+    @SerializedName("url_360")
+    @Expose
+    private String url_360;
+    @SerializedName("url_480")
+    @Expose
+    private String url_480;
+    @SerializedName("url_720")
+    @Expose
+    private String url_720;
+    @SerializedName("url_1080")
+    @Expose
+    private String url_1080;
     @SerializedName("subtitle")
     @Expose
     private List<Subtitle> subtitle = null;
@@ -75,4 +90,43 @@ public class Video implements Serializable {
         this.subtitle = subtitle;
     }
 
+    public String getReady_url() {
+        return ready_url;
+    }
+
+    public void setReady_url(String ready_url) {
+        this.ready_url = ready_url;
+    }
+
+    public String getUrl_360() {
+        return url_360;
+    }
+
+    public void setUrl_360(String url_360) {
+        this.url_360 = url_360;
+    }
+
+    public String getUrl_480() {
+        return url_480;
+    }
+
+    public void setUrl_480(String url_480) {
+        this.url_480 = url_480;
+    }
+
+    public String getUrl_720() {
+        return url_720;
+    }
+
+    public void setUrl_720(String url_720) {
+        this.url_720 = url_720;
+    }
+
+    public String getUrl_1080() {
+        return url_1080;
+    }
+
+    public void setUrl_1080(String url_1080) {
+        this.url_1080 = url_1080;
+    }
 }
