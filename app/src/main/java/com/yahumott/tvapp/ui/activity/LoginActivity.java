@@ -96,6 +96,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
+                Log.d("error_issue", t.toString());
                 new ToastMsg(LoginActivity.this).toastIconError(getString(R.string.error_toast));
             }
         });

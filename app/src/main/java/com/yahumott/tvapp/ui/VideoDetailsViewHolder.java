@@ -63,7 +63,7 @@ public class VideoDetailsViewHolder extends Presenter.ViewHolder {
 
         if (movie != null && movie.getTitle() != null) {
             movieTitleTV.setText(movie.getTitle());
-            if (!movie.getType().equals("tv")) {
+            if (!movie.getType().equals("T")) {
                 //mRuntimeTV.setText(String.format(Locale.getDefault(), "%d minutes", movie.getRuntime()));
                 descriptionTv.setText(movie.getDescription());
                 //releaseDateTv.setText(String.format(Locale.getDefault(), "(%s)", movie.getRelease().substring(0, 4)));
@@ -124,7 +124,7 @@ public class VideoDetailsViewHolder extends Presenter.ViewHolder {
 
             }
 
-            if (movie.getType().equals("tv")) {
+            if (movie.getType().equals("T")) {
                 detailsLayout.setVisibility(View.GONE);
                 divider.setVisibility(View.GONE);
                 descriptionTv.setText("You are watching on " + context.getResources().getString(R.string.app_name));

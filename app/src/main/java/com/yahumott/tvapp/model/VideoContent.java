@@ -49,7 +49,8 @@ public class VideoContent implements Serializable {
     @SerializedName("stream_url")
     @Expose
     private String streamUrl;
-
+    @SerializedName("type")
+    @Expose
     private String type;
 
 

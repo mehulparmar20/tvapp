@@ -1,10 +1,13 @@
 package com.yahumott.tvapp.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +27,7 @@ import androidx.leanback.widget.RowPresenter;
 import androidx.leanback.widget.SpeechRecognitionCallback;
 
 import com.yahumott.tvapp.Config;
+import com.yahumott.tvapp.Constants;
 import com.yahumott.tvapp.model.Movie;
 import com.yahumott.tvapp.model.SearchContent;
 import com.yahumott.tvapp.model.SearchModel;
@@ -62,13 +66,17 @@ public class SearchFragment extends androidx.leanback.app.SearchFragment impleme
     private String tvHeader = "";
     private String tvSeriesHeader = "";
     private String movieHeader = "";
+    public String token = "";
 
 
     private final Runnable mDelayedLoad = new Runnable() {
         @Override
         public void run() {
             //loadRows();
-            getQueryData();
+            SharedPreferences prefs = getActivity().getSharedPreferences(Constants.USER_LOGIN_STATUS, MODE_PRIVATE);
+            token = prefs.getString("access_token","");
+            Log.d("token", token);
+            getQueryData(token);
 
         }
     };
@@ -197,11 +205,11 @@ public class SearchFragment extends androidx.leanback.app.SearchFragment impleme
         }
     }
 
-    private void getQueryData() {
+    private void getQueryData(String token) {
         final String query = mQuery;
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(token);
         SearchApi searchApi = retrofit.create(SearchApi.class);
-        Call<SearchModel> call = searchApi.getSearchData(Config.API_KEY, query, page_number, "movieserieslive");
+        Call<SearchModel> call = searchApi.getSearchData(query);
         call.enqueue(new Callback<SearchModel>() {
             @Override
             public void onResponse(Call<SearchModel> call,  Response<SearchModel> response) {

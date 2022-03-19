@@ -165,7 +165,7 @@ public class ItemGenreFragment extends VerticalGridSupportFragment {
                     int itemPos = mAdapter.indexOf(item);
                     if (itemPos == movies.size() - 1) {
                         pageCount++;
-                        fetchMovieData(id,token);
+//                        fetchMovieData(id,token);
                     }
                 }
 

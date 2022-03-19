@@ -7,10 +7,10 @@ import java.util.List;
 
 public class Season {
 
-    @SerializedName("seasons_id")
+    @SerializedName("id")
     @Expose
     private String seasonsId;
-    @SerializedName("seasons_name")
+    @SerializedName("season_slug")
     @Expose
     private String seasonsName;
     @SerializedName("episodes")

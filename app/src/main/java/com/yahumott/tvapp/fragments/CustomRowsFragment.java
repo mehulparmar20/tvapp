@@ -243,7 +243,7 @@ public class CustomRowsFragment extends RowsSupportFragment {
                         model.setVideoUrl(videoContent.getStreamUrl());
                         model.setCardImageUrl(videoContent.getPosterUrl());
                         model.setBgImageUrl(videoContent.getThumbnailUrl());
-                        model.setIsPaid(videoContent.getIsPaid());
+
 
                         Intent intent = new Intent(getActivity(), PlayerActivity.class);
                         intent.putExtra(VideoPlaybackActivity.EXTRA_VIDEO, model);

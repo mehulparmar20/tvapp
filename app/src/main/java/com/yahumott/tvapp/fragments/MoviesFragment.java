@@ -96,9 +96,10 @@ public class MoviesFragment extends VerticalGridSupportFragment {
                 Movie movie = (Movie) o;
 
                 Intent intent = new Intent(getActivity(), VideoDetailsActivity.class);
-//                intent.putExtra("id", Movie.cust.getVideosId());
+                intent.putExtra("id", movie.getVideosId());
                 intent.putExtra("type", "movie");
                 intent.putExtra("thumbImage", movie.getThumbnailUrl());
+
 
                 ImageView imageView = ((ImageCardView) viewHolder.view).getMainImageView();
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),

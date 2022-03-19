@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SearchModel implements Serializable {
 
-    @SerializedName("tvseries")
+    @SerializedName("tv_series")
     @Expose
     private List<Movie> tvseries = null;
 

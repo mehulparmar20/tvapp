@@ -14,7 +14,7 @@ public class MovieSingleDetails implements Serializable {
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("description")
+    @SerializedName("detail")
     @Expose
     private String description;
     @SerializedName("slug")
@@ -27,7 +27,7 @@ public class MovieSingleDetails implements Serializable {
     @Expose
     private String runtime;
 
-    @SerializedName("is_tvseries")
+    @SerializedName("series")
     @Expose
     private String isTvseries;
 
@@ -50,20 +50,16 @@ public class MovieSingleDetails implements Serializable {
     @SerializedName("genre")
     @Expose
     private List<Genre> genre = null;
-    @SerializedName("country")
-    @Expose
-    private List<Country> country = null;
+
     @SerializedName("director")
     @Expose
     private List<Director> director = null;
-    @SerializedName("writer")
-    @Expose
-    private List<Writer> writer = null;
+
 
     @SerializedName("cast")
     @Expose
     private List<CastAndCrew> castAndCrew = null;
-    @SerializedName("season")
+    @SerializedName("seasons")
     @Expose
     private List<Season> season = null;
     @SerializedName("related_movie")
@@ -73,7 +69,8 @@ public class MovieSingleDetails implements Serializable {
     @SerializedName("related_tvseries")
     @Expose
     private List<RelatedMovie> relatedTvseries = null;
-
+    @SerializedName("type")
+    @Expose
     private String type;
 
     private String streamFrom;
@@ -202,13 +199,7 @@ public class MovieSingleDetails implements Serializable {
         this.genre = genre;
     }
 
-    public List<Country> getCountry() {
-        return country;
-    }
 
-    public void setCountry(List<Country> country) {
-        this.country = country;
-    }
 
     public List<Director> getDirector() {
         return director;
@@ -218,13 +209,7 @@ public class MovieSingleDetails implements Serializable {
         this.director = director;
     }
 
-    public List<Writer> getWriter() {
-        return writer;
-    }
 
-    public void setWriter(List<Writer> writer) {
-        this.writer = writer;
-    }
 
     public List<DownloadLink> getDownloadLinks() {
         return downloadLinks;

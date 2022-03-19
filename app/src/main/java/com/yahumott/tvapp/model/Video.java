@@ -11,7 +11,7 @@ public class Video implements Serializable {
     @SerializedName("movie_id")
     @Expose
     private String videoFileId;
-    @SerializedName("label")
+    @SerializedName("created_at")
     @Expose
     private String label;
 //    @SerializedName("stream_key")

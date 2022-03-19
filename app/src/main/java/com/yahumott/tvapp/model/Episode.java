@@ -7,19 +7,19 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Episode implements Serializable {
-    @SerializedName("episodes_id")
+    @SerializedName("id")
     @Expose
     private String episodesId;
-    @SerializedName("episodes_name")
+    @SerializedName("title")
     @Expose
     private String episodesName;
     @SerializedName("stream_key")
     @Expose
     private String streamKey;
-    @SerializedName("file_type")
+    @SerializedName("type")
     @Expose
     private String fileType;
-    @SerializedName("image_url")
+    @SerializedName("thumbnail")
     @Expose
     private String imageUrl;
     @SerializedName("file_url")

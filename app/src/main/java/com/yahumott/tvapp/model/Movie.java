@@ -105,11 +105,11 @@ public class Movie implements Serializable {
     }
 
     public String getThumbnailUrl() {
-        return "https://yahumott.com/images/movies/thumbnails/"+thumbnailUrl;
+        return thumbnailUrl;
     }
 
     public String getThumbnailUrltv() {
-        return "https://yahumott.com/images/tvseries/thumbnails/"+thumbnailUrl;
+        return thumbnailUrl;
     }
 
     public void setThumbnailUrl(String thumbnailUrl) {

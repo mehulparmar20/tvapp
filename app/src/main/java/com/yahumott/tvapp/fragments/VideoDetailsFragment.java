@@ -164,8 +164,17 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
             getData(type, id);
             getFavStatus();
 
-        } else if (type.equals("tvseries")) {
+        }
+        else if (type.equals("Featured Movie")) {
+            // fetch movie details
+            type="M";
+            getData(type, id);
+            getFavStatus();
+
+        }
+        else if (type.equals("tvseries")) {
             // fetch tv series details
+            type="T";
             getTvSeries(type, id);
             getFavStatus();
         }
@@ -378,13 +387,28 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
                     video.setVideo(obj);
                     ArrayList<Video> videoListForIntent = new ArrayList<>(videoList);
                     video.setVideoList(videoListForIntent);
-                    video.setVideoUrl(obj.getUrl_360());
+                    if(obj.getReady_url()!=null)
+                    {
+                        video.setVideoUrl(obj.getReady_url());
+                    }
+                    if(obj.getUrl_360()!=null)
+                    {
+                        video.setVideoUrl(obj.getUrl_360());
+                    }
+                    if(obj.getUrl_480()!=null)
+                    {
+                        video.setVideoUrl(obj.getUrl_480());
+                    }
+                    if(obj.getUrl_720()!=null)
+                    {
+                        video.setVideoUrl(obj.getUrl_720());
+                    }
+                    if(obj.getUrl_1080()!=null)
+                    {
+                        video.setVideoUrl(obj.getUrl_1080());
+                    }
                     video.setVideoType(obj.getFileType());
-//                    video.setVideoType(obj.getReady_url());
-//                    video.setVideoType(obj.getUrl_360());
-//                    video.setVideoType(obj.getUrl_480());
-//                    video.setVideoType(obj.getUrl_720());
-//                    video.setVideoType(obj.getUrl_1080());
+
                     video.setBgImageUrl(movieDetails.getPosterUrl());
                     video.setCardImageUrl(movieDetails.getThumbnailUrl());
 
@@ -415,7 +439,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
         call.enqueue(new Callback<MovieSingleDetails>() {
             @Override
             public void onResponse(Call<MovieSingleDetails> call, Response<MovieSingleDetails> response) {
-                Log.d("single_movie", response.toString());
+                Log.d("single_movie", response.body().toString());
                 if (response.code() == 200) {
 
                     MovieSingleDetails singleDetails = new MovieSingleDetails();
@@ -458,12 +482,13 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
         final FragmentManager fm = getFragmentManager();
         fm.beginTransaction().add(R.id.details_fragment, spinnerFragment).commit();
 
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance2(token);
         DetailsApi api = retrofit.create(DetailsApi.class);
-        Call<MovieSingleDetails> call = api.getSingleDetail(vtype, vId);
+        Call<MovieSingleDetails> call = api.getSingleTVDetail(vtype, vId);
         call.enqueue(new Callback<MovieSingleDetails>() {
             @Override
             public void onResponse(Call<MovieSingleDetails> call, Response<MovieSingleDetails> response) {
+                Log.d("tv_series_resp", response.toString());
                 if (response.code() == 200) {
                     MovieSingleDetails singleDetails = new MovieSingleDetails();
                     singleDetails = response.body();

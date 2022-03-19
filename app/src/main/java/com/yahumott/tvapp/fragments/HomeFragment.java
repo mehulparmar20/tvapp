@@ -223,70 +223,72 @@ public class HomeFragment extends RowsSupportFragment {
 
                 String status = new DatabaseHelper(getContext()).getActiveStatusData().getStatus();
 
-                if (videoContent.getType().equals("T")) {
-                    if (videoContent.getIsPaid().equals("1")) {
-                        if (PreferenceUtils.isValid(getActivity())) {
-                            if (status.equals("active")) {
-                                PlaybackModel model = new PlaybackModel();
-                                model.setId(Long.parseLong(videoContent.getId()));
-                                model.setTitle(videoContent.getTitle());
-                                model.setDescription(videoContent.getDescription());
-                                model.setVideoType(videoContent.getStreamFrom());
-                                model.setCategory("tv");
-                                model.setVideoUrl(videoContent.getStreamUrl());
-                                model.setCardImageUrl(videoContent.getPosterUrl());
-                                model.setBgImageUrl(videoContent.getThumbnailUrl());
-                                model.setIsPaid(videoContent.getIsPaid());
-
-                                Intent intent = new Intent(getActivity(), PlayerActivity.class);
-                                intent.putExtra(VideoPlaybackActivity.EXTRA_VIDEO, model);
-                                startActivity(intent);
-                            } else {
-                                //subscription is not active
-                                //new PaidDialog(getActivity()).showPaidContentAlertDialog();
-                                PaidDialog dialog = new PaidDialog(getContext());
-                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                                dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                                dialog.show();
-                            }
-                        } else {
-                            //saved data is not valid, because it was saved more than 2 hours ago
-                            PreferenceUtils.updateSubscriptionStatus(getActivity());
-                            PaidDialog dialog = new PaidDialog(getContext());
-                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                            dialog.show();
-                        }
-                    } else {
-                        PlaybackModel model = new PlaybackModel();
-                        model.setId(Long.parseLong(videoContent.getId()));
-                        model.setTitle(videoContent.getTitle());
-                        model.setDescription(videoContent.getDescription());
-                        model.setVideoType(videoContent.getStreamFrom());
-                        model.setCategory("tv");
-                        model.setVideoUrl(videoContent.getStreamUrl());
-                        model.setCardImageUrl(videoContent.getPosterUrl());
-                        model.setBgImageUrl(videoContent.getThumbnailUrl());
-                        model.setIsPaid(videoContent.getIsPaid());
-
-                        Intent intent = new Intent(getActivity(), PlayerActivity.class);
-                        intent.putExtra(VideoPlaybackActivity.EXTRA_VIDEO, model);
-                        startActivity(intent);
-                    }
-
-                } else {
+//                if (videoContent.getType().equals("tvseries")) {
+////                    if (videoContent.gets().equals("1")) {
+//                        if (PreferenceUtils.isValid(getActivity())) {
+//                            if (status.equals("active")) {
+//                                PlaybackModel model = new PlaybackModel();
+//                                model.setId(Long.parseLong(videoContent.getId()));
+//                                model.setTitle(videoContent.getTitle());
+//                                model.setDescription(videoContent.getDescription());
+//                                model.setVideoType(videoContent.getStreamFrom());
+//                                model.setCategory("tv");
+//                                model.setVideoUrl(videoContent.getStreamUrl());
+//                                model.setCardImageUrl(videoContent.getPosterUrl());
+//                                model.setBgImageUrl(videoContent.getThumbnailUrl());
+//
+//
+//                                Intent intent = new Intent(getActivity(), PlayerActivity.class);
+//                                intent.putExtra(VideoPlaybackActivity.EXTRA_VIDEO, model);
+//                                startActivity(intent);
+//                            } else {
+//                                //subscription is not active
+//                                //new PaidDialog(getActivity()).showPaidContentAlertDialog();
+//                                PaidDialog dialog = new PaidDialog(getContext());
+//                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                                dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+//                                dialog.show();
+//                            }
+//                        } else {
+//                            //saved data is not valid, because it was saved more than 2 hours ago
+//                            PreferenceUtils.updateSubscriptionStatus(getActivity());
+//                            PaidDialog dialog = new PaidDialog(getContext());
+//                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+//                            dialog.show();
+//                        }
+////                    } else {
+////                        PlaybackModel model = new PlaybackModel();
+////                        model.setId(Long.parseLong(videoContent.getId()));
+////                        model.setTitle(videoContent.getTitle());
+////                        model.setDescription(videoContent.getDescription());
+////                        model.setVideoType(videoContent.getStreamFrom());
+////                        model.setCategory("tv");
+////                        model.setVideoUrl(videoContent.getStreamUrl());
+////                        model.setCardImageUrl(videoContent.getPosterUrl());
+////                        model.setBgImageUrl(videoContent.getThumbnailUrl());
+////
+////
+////                        Intent intent = new Intent(getActivity(), PlayerActivity.class);
+////                        intent.putExtra(VideoPlaybackActivity.EXTRA_VIDEO, model);
+////                        startActivity(intent);
+////                    }
+//
+//                } else {
                     Intent intent = new Intent(getActivity(), VideoDetailsActivity.class);
                     intent.putExtra("id", videoContent.getId());
                     intent.putExtra("type", videoContent.getType());
                     intent.putExtra("thumbImage", videoContent.getThumbnailUrl());
-
+                Log.d("video id", videoContent.getId());
+                Log.d("video type", videoContent.getType());
+                Log.d("video thumbImage", videoContent.getThumbnailUrl());
                     //poster transition
                     ImageView imageView = ((ImageCardView) viewHolder.view).getMainImageView();
                     Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                             imageView, VideoDetailsFragment.TRANSITION_NAME).toBundle();
 
                     startActivity(intent, bundle);
-                }
+//                }
 
 
             }

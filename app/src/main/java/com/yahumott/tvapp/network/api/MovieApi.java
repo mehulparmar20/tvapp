@@ -18,7 +18,7 @@ public interface MovieApi {
     Call<MovieList> getMovies();
 
     @POST("genredetails")
-    Call<List<Movie>> getMovieByGenre(@Query("id") String id);
+    Call<List<Movie>> getMovieByGenre(@Query("genre_id") String id);
 
 
     @GET("content_by_country_id")
