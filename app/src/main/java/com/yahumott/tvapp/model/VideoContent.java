@@ -52,7 +52,9 @@ public class VideoContent implements Serializable {
     @SerializedName("type")
     @Expose
     private String type;
-
+    @SerializedName("status")
+    @Expose
+    private String status;
 
     public String getId() {
         return id;
@@ -172,5 +174,13 @@ public class VideoContent implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

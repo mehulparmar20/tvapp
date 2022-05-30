@@ -6,7 +6,7 @@ import retrofit2.http.GET;
 
 public interface TvSeriesApi {
 
-    @GET("tvseries")
+    @GET("tv_series")
     Call<MovieList> getTvSeries();
 
 }

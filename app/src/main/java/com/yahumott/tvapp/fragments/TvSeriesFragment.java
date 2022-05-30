@@ -159,6 +159,7 @@ public class TvSeriesFragment extends VerticalGridSupportFragment {
             @Override
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
                 if (response.code() == 200) {
+                    Log.d(TAG, response.toString());
                     movies = response.body().getResulttv();
                     Log.d(TAG, movies.toString());
                     if (movies.size() == 0) {

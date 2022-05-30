@@ -72,7 +72,7 @@ public class LeanbackActivity extends FragmentActivity {
 
         fragments = new LinkedHashMap<>();
 
-        int CATEGORIES_NUMBER = 7;
+        int CATEGORIES_NUMBER = 6;
         for (int i = 0; i < CATEGORIES_NUMBER; i++) {
             if (i == 0) {
                 HomeFragment fragment = new HomeFragment();
@@ -90,19 +90,19 @@ public class LeanbackActivity extends FragmentActivity {
                 bundle.putInt("menu", i);
                 fragment.setArguments(bundle);
                 fragments.put(i, fragment);
-            } else if (i == 4) {
+            } else if (i == 3) {
                 GenreFragment fragment = new GenreFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("menu", i);
                 fragment.setArguments(bundle);
                 fragments.put(i, fragment);
-            }  else if (i == 5) {
+            }  else if (i == 4) {
                 FavouriteFragment fragment = new FavouriteFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("menu", i);
                 fragment.setArguments(bundle);
                 fragments.put(i, fragment);
-            } else if (i == 6) {
+            } else if (i == 5) {
                 MyAccountFragment fragment = new MyAccountFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("menu", i);

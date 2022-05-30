@@ -179,7 +179,7 @@ public class FavouriteFragment extends VerticalGridSupportFragment {
                 List<Movie> movieList = response.body();
                 if (movieList.size() <= 0) {
                     dataAvailable = false;
-                    Toast.makeText(getContext(), getResources().getString(R.string.no_data_found), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),  getResources().getString(R.string.no_data_found), Toast.LENGTH_SHORT).show();
                 }
 
 

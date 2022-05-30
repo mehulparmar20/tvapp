@@ -190,11 +190,12 @@ public class HomeFragment extends RowsSupportFragment {
                     videoContent.setType("genres");
                 }
                 else if (homeContents.get(i).getType().equalsIgnoreCase("slider")) {
-                    if (videoContent.getIsTvseries()!="null") {
-                        videoContent.setType("tvseries");
-                    } else if (videoContent.getIsTvseries()=="null") {
-                        videoContent.setType("movie");
-                    }
+//                    if (videoContent.getIsTvseries()!="null") {
+//                        videoContent.setType("tvseries");
+//                    } else if (videoContent.getIsTvseries()=="null") {
+//                        videoContent.setType("movie");
+                    videoContent.setType("slider");
+//                    }
                 }
 
                 listRowAdapter.add(videoContent);
@@ -275,19 +276,23 @@ public class HomeFragment extends RowsSupportFragment {
 ////                    }
 //
 //                } else {
+                if(videoContent.getType()!="slider")
+                {
                     Intent intent = new Intent(getActivity(), VideoDetailsActivity.class);
                     intent.putExtra("id", videoContent.getId());
                     intent.putExtra("type", videoContent.getType());
                     intent.putExtra("thumbImage", videoContent.getThumbnailUrl());
-                Log.d("video id", videoContent.getId());
-                Log.d("video type", videoContent.getType());
-                Log.d("video thumbImage", videoContent.getThumbnailUrl());
+                    Log.d("video id", videoContent.getId());
+                    Log.d("video type", videoContent.getType());
+                    Log.d("video thumbImage", videoContent.getThumbnailUrl());
                     //poster transition
                     ImageView imageView = ((ImageCardView) viewHolder.view).getMainImageView();
                     Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                             imageView, VideoDetailsFragment.TRANSITION_NAME).toBundle();
 
                     startActivity(intent, bundle);
+                }
+
 //                }
 
 

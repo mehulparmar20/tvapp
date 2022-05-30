@@ -71,8 +71,28 @@ public class EpisodPresenter extends Presenter {
                             model.setVideoType(video.getFileType());
                             model.setCategory("tvseries");
                             model.setVideoUrl(video.getFileUrl());
+                            if(video.getReady_url()!=null)
+                            {
+                                model.setVideoUrl(video.getReady_url());
+                            }
+                            if(video.getUrl_360()!=null)
+                            {
+                                model.setVideoUrl(video.getUrl_360());
+                            }
+                            if(video.getUrl_480()!=null)
+                            {
+                                model.setVideoUrl(video.getUrl_480());
+                            }
+                            if(video.getUrl_720()!=null)
+                            {
+                                model.setVideoUrl(video.getUrl_720());
+                            }
+                            if(video.getUrl_1080()!=null)
+                            {
+                                model.setVideoUrl(video.getUrl_1080());
+                            }
                             Video videoModel = new Video();
-                            videoModel.setSubtitle(video.getSubtitle());
+//                            videoModel.setSubtitle(video.getSubtitle());
                             model.setVideo(videoModel);
                             model.setCardImageUrl(video.getCardBackgroundUrl());
                             model.setBgImageUrl(video.getImageUrl());
@@ -104,10 +124,11 @@ public class EpisodPresenter extends Presenter {
                     model.setDescription("Seasson: " + video.getSeasonName() + "; Episode: " + video.getEpisodesName());
                     model.setVideoType(video.getFileType());
                     model.setCategory("tvseries");
-                    model.setVideoUrl(video.getFileUrl());
+//                    model.setVideoUrl(video.getFileUrl());
                     Video videoModel = new Video();
-                    videoModel.setSubtitle(video.getSubtitle());
+//                    videoModel.setSubtitle(video.getSubtitle());
                     model.setVideo(videoModel);
+                    model.setVideoUrl(videoModel.getFileUrl());
                     model.setCardImageUrl(video.getCardBackgroundUrl());
                     model.setBgImageUrl(video.getImageUrl());
                     model.setIsPaid(video.getIsPaid());

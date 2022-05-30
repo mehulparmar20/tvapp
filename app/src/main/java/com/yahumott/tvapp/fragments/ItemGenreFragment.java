@@ -113,13 +113,16 @@ public class ItemGenreFragment extends VerticalGridSupportFragment {
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
                 Log.d("genre_res", response.toString());
                 if (response.code() == 200) {
+
                     List<Movie> movieList = response.body();
+
                     if (movieList.size() <= 0) {
                         dataAvailable = false;
                         //Toast.makeText(activity, getResources().getString(R.string.no_data_found), Toast.LENGTH_SHORT).show();
                     }
                     for (Movie movie : movieList) {
                         mAdapter.add(movie);
+                        Log.d(TAG, movie.getPosterUrl());
                     }
 
                     mAdapter.notifyArrayItemRangeChanged(movieList.size() - 1, movieList.size() + movies.size());
@@ -146,7 +149,16 @@ public class ItemGenreFragment extends VerticalGridSupportFragment {
 
                 Intent intent = new Intent(getActivity(), VideoDetailsActivity.class);
                 intent.putExtra("id", movie.getVideosId());
-                intent.putExtra("type", "movie");
+                String mov=movie.getType();
+                Log.d("movie_or", mov);
+                if(mov.equals("T"))
+                {
+                    intent.putExtra("type", "tvseries");
+                }
+                else if(mov.equals("M"))
+                {
+                    intent.putExtra("type", "movie");
+                }
                 intent.putExtra("thumbImage", movie.getThumbnailUrl());
                 startActivity(intent);
             }

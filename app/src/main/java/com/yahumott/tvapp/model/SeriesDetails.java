@@ -3,15 +3,13 @@ package com.yahumott.tvapp.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class MovieSingleDetails implements Serializable {
-
-    @SerializedName("tvseries")
-    @Expose
-    private  List<MovieSingleDetails> tvseries = null;
-
+public class SeriesDetails {
+//    @SerializedName("tvseries")
+//    @Expose
+//    private List<MovieSingleDetails> tvseries = null;
+//
     @SerializedName("id")
     @Expose
     private String videosId;
@@ -83,7 +81,7 @@ public class MovieSingleDetails implements Serializable {
     @SerializedName("cast")
     @Expose
     private List<CastAndCrew> castAndCrew = null;
-    @SerializedName("season")
+    @SerializedName("seasons")
     @Expose
     private List<Season> season = null;
     @SerializedName("related_movie")
@@ -96,13 +94,13 @@ public class MovieSingleDetails implements Serializable {
     @SerializedName("type")
     @Expose
     private String type;
-
-    private String streamFrom;
-    private String streamLabel;
-    private String streamUrl;
-    private List<MediaSource> mediaSource;
-    private List<Channel> channelList;
-
+//
+//    private String streamFrom;
+//    private String streamLabel;
+//    private String streamUrl;
+//    private List<MediaSource> mediaSource;
+//    private List<Channel> channelList;
+//
     public String getStatus() {
         return status;
     }
@@ -110,7 +108,7 @@ public class MovieSingleDetails implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-
+//
     public String getVideosId() {
         return videosId;
     }
@@ -126,7 +124,7 @@ public class MovieSingleDetails implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
-
+//
     public String getDescription() {
         return description;
     }
@@ -134,7 +132,7 @@ public class MovieSingleDetails implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
+//
     public String getSlug() {
         return slug;
     }
@@ -222,9 +220,9 @@ public class MovieSingleDetails implements Serializable {
     public void setGenre(List<Genre> genre) {
         this.genre = genre;
     }
-
-
-
+//
+//
+//
     public List<Director> getDirector() {
         return director;
     }
@@ -232,9 +230,9 @@ public class MovieSingleDetails implements Serializable {
     public void setDirector(List<Director> director) {
         this.director = director;
     }
-
-
-
+//
+//
+//
     public List<DownloadLink> getDownloadLinks() {
         return downloadLinks;
     }
@@ -242,9 +240,9 @@ public class MovieSingleDetails implements Serializable {
     public void setDownloadLinks(List<DownloadLink> downloadLinks) {
         this.downloadLinks = downloadLinks;
     }
-
-
-
+//
+//
+//
     public List<CastAndCrew> getCastAndCrew() {
         return castAndCrew;
     }
@@ -256,7 +254,7 @@ public class MovieSingleDetails implements Serializable {
     public List<Season> getSeason() {
         return season;
     }
-
+//
     public void setSeason(List<Season> season) {
         this.season = season;
     }
@@ -285,54 +283,51 @@ public class MovieSingleDetails implements Serializable {
         this.type = type;
     }
 
-    public String getStreamFrom() {
-        return streamFrom;
-    }
-
-    public void setStreamFrom(String streamFrom) {
-        this.streamFrom = streamFrom;
-    }
-
-    public String getStreamLabel() {
-        return streamLabel;
-    }
-
-    public void setStreamLabel(String streamLabel) {
-        this.streamLabel = streamLabel;
-    }
-
-    public String getStreamUrl() {
-        return streamUrl;
-    }
-
-    public void setStreamUrl(String streamUrl) {
-        this.streamUrl = streamUrl;
-    }
-
-    public List<MediaSource> getMediaSource() {
-        return mediaSource;
-    }
-
-    public void setMediaSource(List<MediaSource> mediaSource) {
-        this.mediaSource = mediaSource;
-    }
-
-    public List<Channel> getChannelList() {
-        return channelList;
-    }
-
-    public void setChannelList(List<Channel> channelList) {
-        this.channelList = channelList;
-    }
-
-    public List<MovieSingleDetails> getTvseries() {
-        return tvseries;
-    }
-
-    public void setTvseries(List<MovieSingleDetails> tvseries) {
-        this.tvseries = tvseries;
-    }
+//    public String getStreamFrom() {
+//        return streamFrom;
+//    }
+//
+//    public void setStreamFrom(String streamFrom) {
+//        this.streamFrom = streamFrom;
+//    }
+//
+//    public String getStreamLabel() {
+//        return streamLabel;
+//    }
+//
+//    public void setStreamLabel(String streamLabel) {
+//        this.streamLabel = streamLabel;
+//    }
+//
+//    public String getStreamUrl() {
+//        return streamUrl;
+//    }
+//
+//    public void setStreamUrl(String streamUrl) {
+//        this.streamUrl = streamUrl;
+//    }
+//
+//    public List<MediaSource> getMediaSource() {
+//        return mediaSource;
+//    }
+//
+//    public void setMediaSource(List<MediaSource> mediaSource) {
+//        this.mediaSource = mediaSource;
+//    }
+//
+//    public List<Channel> getChannelList() {
+//        return channelList;
+//    }
+//
+//    public void setChannelList(List<Channel> channelList) {
+//        this.channelList = channelList;
+//    }
+//
+//    public List<MovieSingleDetails> getTvseries() {
+//        return tvseries;
+//    }
+//
+//    public void setTvseries(List<MovieSingleDetails> tvseries) {
+//        this.tvseries = tvseries;
+//    }
 }
-
-
-

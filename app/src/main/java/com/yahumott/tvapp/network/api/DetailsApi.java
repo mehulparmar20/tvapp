@@ -1,6 +1,7 @@
 package com.yahumott.tvapp.network.api;
 
 import com.yahumott.tvapp.model.MovieSingleDetails;
+import com.yahumott.tvapp.model.SeriesDetails;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,5 +16,5 @@ public interface DetailsApi {
 
     @GET("series_detail")
     Call<MovieSingleDetails> getSingleTVDetail(@Query("series_id") String videoId,
-                                             @Query("type") String videoType);
+                                          @Query("type") String videoType);
 }

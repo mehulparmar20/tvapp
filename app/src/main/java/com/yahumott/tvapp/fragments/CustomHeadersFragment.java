@@ -66,10 +66,10 @@ public class CustomHeadersFragment extends HeadersSupportFragment {
 
     private void setHeaderAdapter() {
 
-        String[] headerItem = new String[]{"Home", "Movies", "TV Series", "Live TV", "Genre","Favorite", "My Account"};
+        String[] headerItem = new String[]{"Home", "Movies", "TV Series", "Genre","Favorite", "My Account"};
 
         int[] headerIcon = new int[]{R.drawable.outline_home_24, R.drawable.outline_movie_24,
-                R.drawable.outline_local_movies_24, R.drawable.outline_live_tv_24, R.drawable.outline_folder_24,
+                R.drawable.outline_local_movies_24,  R.drawable.outline_folder_24,
                 R.drawable.outline_outlined_flag_24, R.drawable.ic_favorite_border_black_24dp,
                 R.drawable.ic_exit_to_app_black_24dp};
 

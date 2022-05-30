@@ -11,6 +11,12 @@ public class Video implements Serializable {
     @SerializedName("movie_id")
     @Expose
     private String videoFileId;
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("episode_id")
+    @Expose
+    private String episode_id;
     @SerializedName("created_at")
     @Expose
     private String label;
@@ -38,9 +44,9 @@ public class Video implements Serializable {
     @SerializedName("url_1080")
     @Expose
     private String url_1080;
-    @SerializedName("subtitle")
-    @Expose
-    private List<Subtitle> subtitle = null;
+//    @SerializedName("subtitle")
+//    @Expose
+//    private List<Subtitle> subtitle = null;
 
     public String getVideoFileId() {
         return videoFileId;
@@ -82,13 +88,13 @@ public class Video implements Serializable {
         this.fileUrl = fileUrl;
     }
 
-    public List<Subtitle> getSubtitle() {
-        return subtitle;
-    }
-
-    public void setSubtitle(List<Subtitle> subtitle) {
-        this.subtitle = subtitle;
-    }
+//    public List<Subtitle> getSubtitle() {
+//        return subtitle;
+//    }
+//
+//    public void setSubtitle(List<Subtitle> subtitle) {
+//        this.subtitle = subtitle;
+//    }
 
     public String getReady_url() {
         return ready_url;

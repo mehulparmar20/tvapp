@@ -52,7 +52,7 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.OriginalVi
     public void onBindViewHolder(final OriginalViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
         Video obj = videos.get(position);
-        holder.serverNameTv.setText(obj.getLabel());
+        holder.serverNameTv.setText("Server 1");
 
         holder.serverNameTv.setOnClickListener(new View.OnClickListener() {
             @Override

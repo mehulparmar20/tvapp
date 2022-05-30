@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 public interface MovieApi {
 
 
-    @GET("movie")
+    @GET("movie_list")
     Call<MovieList> getMovies();
 
     @POST("genredetails")

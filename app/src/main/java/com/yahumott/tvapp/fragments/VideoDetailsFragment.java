@@ -157,7 +157,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
         mDetailsOverviewRow = new DetailsOverviewRow(new MovieSingleDetails());
         mAdapter.add(mDetailsOverviewRow);
         loadImage(thumbUrl);
-
+        Log.d("movie_type", type);
         if (type.equals("movie")) {
             // fetch movie details
             type="M";
@@ -183,7 +183,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
     public void setActionAdapter(boolean favAdded) {
         if (type.equals("M")) {
             setMovieActionAdapter(favAdded);
-        } else if (type.equals("tvseries")) {
+        } else if (type.equals("T")) {
             setTvSeriesActionAdapter(favAdded);
         }
 
@@ -439,7 +439,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
         call.enqueue(new Callback<MovieSingleDetails>() {
             @Override
             public void onResponse(Call<MovieSingleDetails> call, Response<MovieSingleDetails> response) {
-                Log.d("single_movie", response.body().toString());
+                Log.d("single_movie", response.toString());
                 if (response.code() == 200) {
 
                     MovieSingleDetails singleDetails = new MovieSingleDetails();
@@ -484,16 +484,18 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance2(token);
         DetailsApi api = retrofit.create(DetailsApi.class);
-        Call<MovieSingleDetails> call = api.getSingleTVDetail(vtype, vId);
+        Call<MovieSingleDetails> call = api.getSingleTVDetail(vId,vtype);
         call.enqueue(new Callback<MovieSingleDetails>() {
             @Override
             public void onResponse(Call<MovieSingleDetails> call, Response<MovieSingleDetails> response) {
                 Log.d("tv_series_resp", response.toString());
+
                 if (response.code() == 200) {
                     MovieSingleDetails singleDetails = new MovieSingleDetails();
                     singleDetails = response.body();
                     singleDetails.setType("tvseries");
                     isStatus = response.body().getStatus();
+
                     setTvSeriesActionAdapter(favStatus);
                     bindMovieDetails(response.body());
 
@@ -502,6 +504,7 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
                     };
 
                     List<Season> seasons = new ArrayList<Season>();
+
                     seasons.addAll(response.body().getSeason());
 
                     if (seasons.size() == 0) {
@@ -513,10 +516,10 @@ public class VideoDetailsFragment extends DetailsSupportFragment implements Pale
                         if (i == seasons.size()) {
                             // set related content
                             ArrayObjectAdapter rowAdapter = new ArrayObjectAdapter(new RelatedPresenter(getActivity()));
-                            for (RelatedMovie model : response.body().getRelatedTvseries()) {
-                                model.setType("tvseries");
-                                rowAdapter.add(model);
-                            }
+//                            for (RelatedMovie model : response.body().getRelatedTvseries()) {
+//                                model.setType("tvseries");
+//                                rowAdapter.add(model);
+//                            }
                             HeaderItem header = new HeaderItem(i, subcategories[0]);
                             mAdapter.add(new ListRow(header, rowAdapter));
                         } else {

@@ -86,7 +86,7 @@ import static java.lang.String.valueOf;
 
 public class PlayerActivity extends Activity {
     private static final String TAG = "PlayerActivity";
-    private static final String CLASS_NAME = "com.oxoo.spagreen.ui.activity.PlayerActivity";
+    private static final String CLASS_NAME = "com.yahumott.tv.ui.activity.PlayerActivity";
     private PlayerView exoPlayerView;
     private SimpleExoPlayer player;
     private RelativeLayout rootLayout;
@@ -124,29 +124,37 @@ public class PlayerActivity extends Activity {
 
         assert model != null;
         url = model.getVideoUrl();
-        videoType = model.getVideoType();
-        category = model.getCategory();
-        if (model.getVideo() != null)
-            video = model.getVideo();
-        if (model.getCategory().equals("movie")  ) {
-            //Paid Content from Channel
-            //check user has subscription or not
-            //if not, send user to VideoDetailsActivity
-            DatabaseHelper db = new DatabaseHelper(PlayerActivity.this);
-            final String status = db.getActiveStatusData().getStatus();
-            if (!status.equals("active") || !PreferenceUtils.isValid(PlayerActivity.this)) {
-                Intent intent = new Intent(PlayerActivity.this, VideoDetailsActivity.class);
-                intent.putExtra("type", model.getCategory());
-                intent.putExtra("id", model.getMovieId());
-                intent.putExtra("thumbImage", model.getCardImageUrl());
-                startActivity(intent, null);
-                finish();
+        if(url!=null)
+        {
+            videoType = model.getVideoType();
+            category = model.getCategory();
+            if (model.getVideo() != null)
+                video = model.getVideo();
+            if (model.getCategory().equals("movie")  ) {
+                //Paid Content from Channel
+                //check user has subscription or not
+                //if not, send user to VideoDetailsActivity
+                DatabaseHelper db = new DatabaseHelper(PlayerActivity.this);
+                final String status = db.getActiveStatusData().getStatus();
+                if (!status.equals("active") || !PreferenceUtils.isValid(PlayerActivity.this)) {
+                    Intent intent = new Intent(PlayerActivity.this, VideoDetailsActivity.class);
+                    intent.putExtra("type", model.getCategory());
+                    intent.putExtra("id", model.getMovieId());
+                    intent.putExtra("thumbImage", model.getCardImageUrl());
+                    startActivity(intent, null);
+                    finish();
+                }
             }
+
+            intiViews();
+
+            initVideoPlayer(url, videoType);
+        }
+        else
+        {
+            Toast.makeText(this, "Server Not Found", Toast.LENGTH_LONG).show();
         }
 
-        intiViews();
-
-        initVideoPlayer(url, videoType);
     }
 
     private void intiViews() {
@@ -173,9 +181,9 @@ public class PlayerActivity extends Activity {
             serverButton.setVisibility(View.GONE);
             //hide subtitle button if there is no subtitle
             if (video != null) {
-                if (video.getSubtitle().isEmpty()) {
-                    subtitleButton.setVisibility(View.GONE);
-                }
+//                if (video.getSubtitle().isEmpty()) {
+//                    subtitleButton.setVisibility(View.GONE);
+//                }
             } else {
                 subtitleButton.setVisibility(View.GONE);
             }
@@ -208,14 +216,14 @@ public class PlayerActivity extends Activity {
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, "My Tag:");
 
-        subtitleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //open subtitle dialog
-                openSubtitleDialog();
-            }
-        });
+//        subtitleButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                //open subtitle dialog
+//                openSubtitleDialog();
+//            }
+//        });
 
         serverButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -396,39 +404,39 @@ public class PlayerActivity extends Activity {
 
     private void openSubtitleDialog() {
         if (video != null) {
-            if (!video.getSubtitle().isEmpty()) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(PlayerActivity.this);
-                View view = LayoutInflater.from(PlayerActivity.this).inflate(R.layout.layout_subtitle_dialog, null);
-                RecyclerView serverRv = view.findViewById(R.id.serverRv);
-                SubtitleListAdapter adapter = new SubtitleListAdapter(PlayerActivity.this, video.getSubtitle());
-                serverRv.setLayoutManager(new LinearLayoutManager(PlayerActivity.this));
-                serverRv.setHasFixedSize(true);
-                serverRv.setAdapter(adapter);
-
-                Button closeBt = view.findViewById(R.id.close_bt);
-
-                builder.setView(view);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
-
-                closeBt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                //click event
-                adapter.setListener(new SubtitleListAdapter.OnSubtitleItemClickListener() {
-                    @Override
-                    public void onSubtitleItemClick(View view, Subtitle subtitle, int position, SubtitleListAdapter.SubtitleViewHolder holder) {
-                        setSelectedSubtitle(mediaSource, subtitle.getUrl());
-                        dialog.dismiss();
-                    }
-                });
-
-            } else {
-                new ToastMsg(this).toastIconError(getResources().getString(R.string.no_subtitle_found));
-            }
+//            if (!video.getSubtitle().isEmpty()) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(PlayerActivity.this);
+//                View view = LayoutInflater.from(PlayerActivity.this).inflate(R.layout.layout_subtitle_dialog, null);
+//                RecyclerView serverRv = view.findViewById(R.id.serverRv);
+//                SubtitleListAdapter adapter = new SubtitleListAdapter(PlayerActivity.this, video.getSubtitle());
+//                serverRv.setLayoutManager(new LinearLayoutManager(PlayerActivity.this));
+//                serverRv.setHasFixedSize(true);
+//                serverRv.setAdapter(adapter);
+//
+//                Button closeBt = view.findViewById(R.id.close_bt);
+//
+//                builder.setView(view);
+//                final AlertDialog dialog = builder.create();
+//                dialog.show();
+//
+//                closeBt.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                //click event
+//                adapter.setListener(new SubtitleListAdapter.OnSubtitleItemClickListener() {
+//                    @Override
+//                    public void onSubtitleItemClick(View view, Subtitle subtitle, int position, SubtitleListAdapter.SubtitleViewHolder holder) {
+//                        setSelectedSubtitle(mediaSource, subtitle.getUrl());
+//                        dialog.dismiss();
+//                    }
+//                });
+//
+//            } else {
+//                new ToastMsg(this).toastIconError(getResources().getString(R.string.no_subtitle_found));
+//            }
         } else {
             new ToastMsg(this).toastIconError(getResources().getString(R.string.no_subtitle_found));
         }
@@ -486,26 +494,35 @@ public class PlayerActivity extends Activity {
         player.setPlayWhenReady(true);
 
         Uri uri = Uri.parse(url);
-
+        Log.d("ypemovie", uri.toString());
         switch (type) {
-            case "hls":
+            case "readyurl":
                 mediaSource = hlsMediaSource(uri, PlayerActivity.this);
                 break;
             case "youtube":
+                Log.d(TAG, "initVideoPlayer: youtube");
+                extractYoutubeUrl(url, PlayerActivity.this, 18);
+                break;
+            case "iframeurl":
+                Log.d(TAG, "initVideoPlayer: iframeurl");
                 extractYoutubeUrl(url, PlayerActivity.this, 18);
                 break;
             case "youtube-live":
+                Log.d(TAG, "initVideoPlayer: youtube-live");
                 extractYoutubeUrl(url, PlayerActivity.this, 133);
                 break;
             case "rtmp":
+                Log.d(TAG, "initVideoPlayer: rtmp");
                 mediaSource = rtmpMediaSource(uri);
                 break;
             default:
+                Log.d(TAG, "initVideoPlayer: default");
                 mediaSource = mediaSource(uri, PlayerActivity.this);
                 break;
         }
 
         if (!type.contains("youtube")) {
+            Log.d("mediasource", mediaSource.toString());
             player.prepare(mediaSource, true, false);
             exoPlayerView.setPlayer(player);
             player.setPlayWhenReady(true);
